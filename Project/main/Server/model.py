@@ -1,3 +1,5 @@
+# model.py
+
 from DBMS import Databass as DB
 
 # 상속을 사용하여 구현하면 아래와 같이 구현
@@ -7,17 +9,6 @@ from DBMS import Databass as DB
     #def get_data(self, table, data, ):
         #query = f'select * from {table} where {data}'  # 이것과 유사하게 작성
         #data = self.implement_query(query= query)
-        
-
-class Book:
-    bid:int = -1
-    title:str = "Default"
-    author:str = "Default"
-    genre:str = "Default"
-    contents:str = "contents" # 이건 다른 클래스로 빼도됨
-    publishedDate:str = "date"
-    introduction:str = "Default" # 뭔지 모름
-
 
 # 의존을 통해 구현하면 아래와 같이 구현
 class MasterModel():
@@ -28,5 +19,18 @@ class MasterModel():
         #query = f'select * from {table} where {data}'  # 이것과 유사하게 작성
         #data = self.db.implement_query(query= query)
         pass
+
+
+# Book 클래스
+class Book:
+    bid:int = -1
+    title:str = "Default"
+    author:str = "Default"
+    genre:str = "Default"
+    contents:str = "contents" # 이건 다른 클래스로 빼도됨
+    publishedDate:str = "date"
+    introduction:str = "Default" # 뭔지 모름
+
+
 
 

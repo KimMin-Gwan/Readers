@@ -1,3 +1,5 @@
+# DBMS.py
+
 from constant import *
 import cx_Oracle
 
@@ -5,11 +7,12 @@ import cx_Oracle
 # 의존성을 주입해서 사용해도 가능
 # 기호에 따라 적절하게 선택하여 사용할것
 
+# DBMS
 class Databass():
     def __init__(self):
         self.connection = cx_Oracle.connect(username, password, dsn, encoding='UTF-8')
 
-
+    # Query 실행부
     def implement_query(self, query:str):
         # query = "select * from table"
         # 아래는 쿼리 실행문
@@ -18,10 +21,15 @@ class Databass():
 
         data = self.call_cursor(cursor) # 사용가능한 데이터로 변경
 
-        if len(data):
+        cursor.close()
+        # 만약 찾아낸 데이터가 없다면 처리
+        if not len(data):
             return
 
-        # self.work_something(cursor)  # 여기서 함수로 동작
+        result = self.work_something(data)  # 여기서 함수로 동작
+
+        return result
+
 
 
     # 커서의 상태 및 현재 데이터 변환 후 반환
@@ -45,4 +53,5 @@ class Databass():
     def terminate_connection(self):
         
         self.connection.close()
-        
+
+

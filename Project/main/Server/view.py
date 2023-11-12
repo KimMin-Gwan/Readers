@@ -1,3 +1,5 @@
+# View.py
+
 from fastapi.responses import RedirectResponse, FileResponse
 from fastapi import FastAPI, HTTPException, WebSocket
 from pydantic import BaseModel
@@ -6,11 +8,14 @@ from fastapi.websockets import WebSocketDisconnect
 import base64  # for image transfer
 import uvicorn
 
+# View Part
 class AppServer():
     def __init__(self, controller):
         self.app = FastAPI()
         self.controller = controller
 
+
+        # middle ware accept
         self.app.add_middleware(
             CORSMiddleware,
             allow_origins=["*"],
@@ -18,17 +23,19 @@ class AppServer():
             allow_methods=["*"],
             allow_headers=["*"],
         )
+        # 엔드 포인트 router 실행
         self.register_routes()
 
-    def register_routes(self):
 
+    # 엔드 포인트
+    def register_routes(self):
+        # root
         @self.app.get('/')
         async def main_view(self):
             return {"message" : "Hello Readers"}
-        
 
         # main_page list
-        @self.app.get("/item/{item_id}")
+        @self.app.get("/item/main/{item_id}")
         async def return_data(item_id : str):
             items = self.controller.get_item_data()
             if item_id not in items:
@@ -44,13 +51,14 @@ class AppServer():
             return {"item":items[item_id]}
         
 
-        
+        # Exception_Handle (page fault)
         @self.app.exception_handler(HTTPException)
         async def custom_exception_handler(request, exc):
             if exc.status_code == 403:
                 raise HTTPException(status_code=403, detail="Page Not Found")
             return {"item":"Page Not Found"}
         
+    # 동작
     def run_server(self):
         print("SYSTEM_CALL::STARTING SERVER")
         uvicorn.run(self.app, host="127.0.0.1", port=8000)
