@@ -14,11 +14,10 @@
   
       
  - 소속 : 영남대학교 정보통신공학, 컴퓨터공학 (프로젝트가 끝나면 지워집니다.)
- - 지도교수명 : 김영탁
 
 ## 상세
- - 언어 : Kotiln, Java, MySQL
- - 핵심 라이브러리 : Spring
+ - 언어 : Python, flutter
+ - 핵심 라이브러리 : FastAPI
  - 플랫폼 : API 30 Android, AWS
  
 ## 개발 공지
