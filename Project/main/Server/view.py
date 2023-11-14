@@ -8,6 +8,19 @@ from fastapi.websockets import WebSocketDisconnect
 import base64  # for image transfer
 import uvicorn
 
+
+import requests
+import json
+
+
+# dict
+
+#front (flutter) JSON DICT
+#result = requests.post("http://127.0.0.1/home")
+#result = {'author' : "hello world", 'genre' : "hello_world"}
+#json_data = json.dump(result)
+#print(json_data)
+
 # View Part
 class AppServer():
     def __init__(self, controller):
@@ -30,14 +43,14 @@ class AppServer():
     # 엔드 포인트
     def register_routes(self):
         # root
-        @self.app.get('/')
+        @self.app.get('/home')
         async def main_view(self):
             return {"message" : "Hello Readers"}
 
         # main_page list
         @self.app.get("/item/main/{item_id}")
         async def return_data(item_id : str):
-            items = self.controller.get_item_data()
+            items = self.controller.get_item_data(item_id)
             if item_id not in items:
                 raise HTTPException(status_code=404, detail="Item not Found")
             return {"item":items[item_id]}
@@ -65,8 +78,9 @@ class AppServer():
 
     
 
-        
-
+        # ws  apache, nginx
+# http://127.0.0.1:8000/ localhost
+# http://192.168.245.1:8000/
 
 
 

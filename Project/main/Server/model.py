@@ -18,6 +18,8 @@ class MasterModel():
     def get_data(self, table, data):
         #query = f'select * from {table} where {data}'  # 이것과 유사하게 작성
         #data = self.db.implement_query(query= query)
+        data = Book()
+        return data
         pass
 
 
@@ -30,7 +32,7 @@ class Book:
     contents:str = "contents" # 이건 다른 클래스로 빼도됨
     publishedDate:str = "date"
     introduction:str = "Default" # 뭔지 모름
-
-
+# ws
+# http://www.naver.com/book.png
 
 
