@@ -1,7 +1,7 @@
 # DBMS.py
 
 from constant import *
-import cx_Oracle
+import pymysql
 
 # 상속해서 만들어도가능
 # 의존성을 주입해서 사용해도 가능
@@ -11,7 +11,7 @@ import cx_Oracle
 # DBMS
 class Database():
     def __init__(self):
-        self.connection = pymysql.connect(localhost, username, password, db, encoding='UTF-8')
+        self.connection = pymysql.connect(host='3.37.23.159', user='root', password='0000', db='readers', encoding='UTF-8')
 
     # Query 실행부
     def selectAll(self, query:str):
@@ -32,9 +32,33 @@ class Database():
         return result
 
 
-    def selectUser():
+    def selectUser(self, id:str):
+        query = "select * from user where id = %s"
+
+        cursor = self.connection.cursor()
+        cursor.execute(query, (id))
         
-    def insertUser():
+        data = self.call_cursor(cursor)
+        
+        cursor.close()
+        
+        if not len(data):
+            return
+
+        result = self.work_something(data)
+
+        return result
+        
+        
+    def insertUser(self, id:str, password:str, name:str, phoneNumber:str, email:str):
+        query = "insert into user (id, password, name, phoneNumber, email) values (%s, %s, %s, %s, %s)"
+        
+        cursor = self.connection.cursor()
+        cursor.execute(query, (id, password, name, phoneNumber, email))
+        
+        cursor.close()
+        
+        return
         
     def updateUser():
         
@@ -48,7 +72,22 @@ class Database():
     
     def deleteBook():
         
-    def selectAllBook():
+    def selectAllBook(self):
+        query = "select * from book"
+
+        cursor = self.connection.cursor()
+        cursor.execute(query)
+        
+        data = self.call_cursor(cursor)
+        
+        cursor.close()
+        
+        if not len(data):
+            return
+
+        result = self.work_something(data)
+
+        return result
         
     def selectReview():
         
@@ -58,7 +97,22 @@ class Database():
         
     def deleteReview():
         
-    def selectAllReview():
+    def selectAllReview(self):
+        query = "select * from review"
+
+        cursor = self.connection.cursor()
+        cursor.execute(query)
+        
+        data = self.call_cursor(cursor)
+        
+        cursor.close()
+        
+        if not len(data):
+            return
+
+        result = self.work_something(data)
+
+        return result
 
     # 커서의 상태 및 현재 데이터 변환 후 반환
     def call_cursor(self, cursor):
