@@ -31,7 +31,6 @@ class Database():
 
         return result
 
-
     def selectUser(self, id:str):
         query = "select * from user where id = %s"
 
@@ -47,31 +46,55 @@ class Database():
 
         result = self.work_something(data)
 
-        return result
-        
+        return result        
         
     def insertUser(self, id:str, password:str, name:str, phoneNumber:str, email:str):
         query = "insert into user (id, password, name, phoneNumber, email) values (%s, %s, %s, %s, %s)"
         
+        try: 
+            cursor = self.connection.cursor()
+            cursor.execute(query, (id, password, name, phoneNumber, email))
+            cursor.close()
+        except Exception as e:
+            return
+        
+    def updateUser(self, id:str, password:str, name:str, phoneNumber:str, email:str):
+        query = "update user set password = %s, name %s, phoneNumber = %s, email = %s where id = %s"
+        
+        try: 
+            cursor = self.connection.cursor()
+            cursor.execute(query(password, name, phoneNumber, email, id))
+            cursor.close()
+        except Exception as e:
+            return    
+        
+    def deleteUser(self, id:str):
+        query = "delete from user where id = %s"
+
+        try: 
+            cursor = self.connection.cursor()
+            cursor.execute(query(id))
+            cursor.close()
+        except Exception as e:
+            return
+        
+    def selectBook(self, bid:str):
+        query = "select * from book where bid = %s"
+
         cursor = self.connection.cursor()
-        cursor.execute(query, (id, password, name, phoneNumber, email))
+        cursor.execute(query(bid))
+        
+        data = self.call_cursor(cursor)
         
         cursor.close()
         
-        return
-        
-    def updateUser():
-        
-    def deleteUser():
-        
-    def selectBook():
-    
-    def insertBook():
-    
-    def updateBook():
-    
-    def deleteBook():
-        
+        if not len(data):
+            return
+
+        result = self.work_something(data)
+
+        return result
+          
     def selectAllBook(self):
         query = "select * from book"
 
@@ -89,13 +112,52 @@ class Database():
 
         return result
         
-    def selectReview():
+    def selectReview(self, bid:str, writer:str):
+        query = "select * from review where bid = %s and writer = %s"
+
+        cursor = self.connection.cursor()
+        cursor.execute(query(bid, writer))
         
-    def insertReview():
+        data = self.call_cursor(cursor)
         
-    def updateReview():
+        cursor.close()
         
-    def deleteReview():
+        if not len(data):
+            return
+
+        result = self.work_something(data)
+
+        return result 
+        
+    def insertReview(self, bid:str, writer:str, contents:str):
+        query = "insert into review (bid, writer, likes, contents, date) values (%s, %s, 0, %s, now())"
+
+        try: 
+            cursor = self.connection.cursor()
+            cursor.execute(query(bid, writer, contents))
+            cursor.close()
+        except Exception as e:
+            return
+        
+    def updateReview(self, bid:str, writer:str, likes:int, contents:str):
+        query = "update review set likes = %d, contents = %s, date = now() where bid = %s and writer = %s"
+
+        try: 
+            cursor = self.connection.cursor()
+            cursor.execute(query(likes, contents, bid, writer))
+            cursor.close()
+        except Exception as e:
+            return
+        
+    def deleteReview(self, bid:str, writer:str):
+        query = "delete from user where bid = %s and writer = %s"
+
+        try: 
+            cursor = self.connection.cursor()
+            cursor.execute(query(bid, writer))
+            cursor.close()
+        except Exception as e:
+            return
         
     def selectAllReview(self):
         query = "select * from review"
@@ -133,7 +195,6 @@ class Database():
         return data
        
     def terminate_connection(self):
-        
         self.connection.close()
 
 
