@@ -1,6 +1,6 @@
 # controller.py
 #from constant import *
-#from model import Book
+from model import UserModel
 
 
 
@@ -10,10 +10,13 @@
 class Master_Controller():
     def __init__(self, model):
         self.cover_search = Cover_Search_Controller()
-        self.book_detail = BookDetailView()
-        self.model = model
+        self.book_detail = BookDetail()
+        self.User = User()
+        
+    
 
     def get_book_list_data(self):
+
         result = self.book_detail.get_data()
 
         return result
@@ -34,44 +37,19 @@ class ClassWithModel():
 
 # 모델을 사용하는 클래스들
 
-class bookList(ClassWithModel):
-    def __init__(self,title):
-        self.title = title
-        pass
 
-class sortBook(ClassWithModel):
-    def __init__(self):
-        pass
-
-class BookDetailView(ClassWithModel):
-    def __init__(self):
-        self.sort = SortBook()
-        pass
-
-class Cover_Search_Controller(ClassWithModel):
-    def __init__(self):
-        pass
-
-class Book(ClassWithModel):
-    def __init__(self, db):
-        pass
-
-class Review(ClassWithModel):
-    def __init__(self,db):
-        pass
+# usermodel을 사용하는 클래스들
 
 class ClassWithUserModel(ClassWithModel):
 
-    def __init__(self,uid,id,pw,name,pn,email):
+    def __init__(self,uid,id,pw,name,phonenumber,email):
 
         self.uid = uid
         self.id = id
         self.password = pw
         self.name = name
-        self.phonenumber = pn
+        self.phonenumber = phonenumber
         self.email = email
-        
-        pass
 
     def get_data_from_model(self, *arg):
         pass
@@ -80,29 +58,44 @@ class User(ClassWithUserModel):
 
     def getUid():
         pass
-    def setUid(uid): #int
+    def setUid(self,new_uid): #int
+        self.uid = new_uid
         pass
     def getId():
         pass
-    def setId(id): #string
+    def setId(self,new_id): #string
+        self.Id = new_id
         pass
-    def getPassword(self):
+    def getPassword():
         pass
-    def setPassword(password): #string
+    def setPassword(self,new_password): #string
+        self.Password = new_password
         pass
     def getName():
         pass
-    def setName(name):
+    def setName(self,new_name):
+        self.Name = new_name
         pass
     def getPhoneNumber():
         pass
-    def setPhoneNumber(phoneNumber): # string
+    def setPhoneNumber(self,new_phonenumber): # string
+        self.phonenumber = new_phonenumber
         pass 
     def getEmail():
         pass
-    def setEmail(Email):
+    def setEmail(self,new_Email):
+        self.email = new_Email
         pass
-    def setUser(id,password,name,phoneNumber,email):
+    def setUser(self,new_uid,new_id,new_password,new_name,new_phonenumber,new_email):
+
+        self.uid = new_uid
+        self.id = new_id
+        self.password = new_password
+        self.name = new_name
+        self.Phonenumber = new_phonenumber
+        self.email = new_email
+
+    def get_data_from_model(User, *arg):
         pass
 
 class Register(ClassWithUserModel):
@@ -124,12 +117,151 @@ class Register(ClassWithUserModel):
 
         name # db에 저장
 
+    def storeEmail(email):
+         email
+    
+    def storePhonenumber(phonenumber):
+         phonenumber
+
+    def storeUid(uid):
+         uid
+
+    
 class Login(ClassWithUserModel):
         pass
 
+class Find(ClassWithUserModel):
+        
+    def __init__(self,input):
+        self.input = input             
+        pass
+
+    def findIdPassword():
+        Find.phonenumber
+        pass
+         
+class Profile(ClassWithUserModel):
+        pass
+
+
+# bookmodel을 사용하는 클래스들
 
 class ClassWithBookModel(ClassWithModel):
+
+    def __init__(self,bid,title,author,genre,publishedDate,introduction,contents,purchaseLink,numSearch,publisher):
+
+        self.bid = bid
+        self.title = title
+        self.author = author
+        self.genre = genre
+        self.publishedDate = publishedDate
+        self.introduction = introduction
+        self.contents = contents
+        self.purchaseLink = purchaseLink
+        self.numSearch = numSearch
+        self.publisher = publisher
+        pass
+
+    def getBid():
+        pass
+
+    def setBid(bid):
+        pass
+
+    def getTitle():
+        pass
+
+    def setTitle(title):
+        pass
+
+    def getAuthor():
+        pass
+
+    def setAuthor(author):
+        pass
+
+    def getGenre():
+        pass
+
+    def setGenre(genre):
+        pass
+
+    def getPublishedDate():
+        pass
+
+    def setPublishedDate(publishedDate):
+        pass
+
+    def get_data_from_model(self, *arg):
+        pass
+
+    def getIntroduction():
+        pass
+
+    def setIntroduction(introduction):
+        pass
+
+    def getContents():
+        pass
+
+    def setContents(contents):
+        pass
+
+    def setBook(bid,title,author,genre,publishedDate,introduction,contents):
+        pass
+
+class Book(ClassWithBookModel):
+        
+    def __init__(self, db):
+        pass
+
+class BookList(ClassWithBookModel):
+        
+    def __init__(self):
+        pass
+
+    def setBookList():
+        pass
+
+    def loadBookList():
+        pass 
+
+class SortBook(ClassWithBookModel):
+        
+    def __init__(self):
+        pass
+
+class BookDetail(ClassWithBookModel):
+        
+    def __init__(self):
+        self.sort = SortBook()
+        pass
+
+class Cover_Search_Controller(ClassWithBookModel):
+            
+    def __init__(self):
+        pass
+
+class ClassWithReviewModel(ClassWithModel):
+
+    def __init__(self):
+        pass
+
+    def get_data_from_model(self, *arg):
+        pass
+
+class Review(ClassWithReviewModel):
+     
+    def __init__(self):
+        pass
     
-    class Book(ClassWithModel):
-        def __init__(self, db):
-            pass
+class WriteReview(ClassWithReviewModel):
+
+    def __init__(self):
+        pass
+
+class ReviewList(ClassWithReviewModel):
+
+    def __init__(self,db):
+        pass
+
