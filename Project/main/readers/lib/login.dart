@@ -64,13 +64,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
+//로그인폼을 생성하기 위한 위젯, 상태를 가질 수 있게-
 class LoginForm extends StatefulWidget {
   @override
   _LoginFormState createState() => _LoginFormState();
 }
 
+//로그인폼 위젯 상태 관리한다.
 class _LoginFormState extends State<LoginForm> {
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>(); //폼 상태 관리. 현상태 액세스, 유효성 검사 등 위해
   bool _isChecked = false; //ID저장 체크박스 위해
 
   @override
@@ -85,6 +87,7 @@ class _LoginFormState extends State<LoginForm> {
               labelText: 'ID 입력',
             ),
             validator: (value) {
+              //null&isEmpty는 다르다.
               if (value == null || value.isEmpty) {
                 return '사용자 이름을 입력해주세요';
               }
@@ -103,13 +106,16 @@ class _LoginFormState extends State<LoginForm> {
               return null;
             },
           ),
+
+          ///수평배치
           Row(
             children: <Widget>[
               Checkbox(
-                value: _isChecked,
+                value: _isChecked, //체크박스 현재 상태
                 onChanged: (bool? value) {
+                  //체크박스 클릭될 때 호출
                   setState(() {
-                    _isChecked = value!;
+                    _isChecked = value!; //상태 변경, UI 다시 그린다.
                   });
                 },
               ),
@@ -138,10 +144,11 @@ class _LoginFormState extends State<LoginForm> {
           ),
           TextButton(
               onPressed: () {
+                //새로운 화면으로 이동(새 화면 푸쉬)
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
-                );
+                ); //아이디/비밀번호 찾는 화면으로 빌드
               },
               child: Text('> 아이디/비밀번호 찾기')),
           SizedBox(
@@ -160,7 +167,7 @@ class _LoginFormState extends State<LoginForm> {
             width: double.infinity,
             height: 45,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {}, //필요하면 추가구현
               child: Text('회원가입'),
               style: ElevatedButton.styleFrom(
                 primary: Colors.deepPurple,
@@ -174,7 +181,7 @@ class _LoginFormState extends State<LoginForm> {
 }
 
 class ForgotPasswordPage extends StatelessWidget {
-  // 아이디/비밀번호 찾기 페이지
+  // 아이디/비밀번호 찾기 페이지(로 이동했을 때. 필요하면 추가 구현)
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -190,3 +197,5 @@ class ForgotPasswordPage extends StatelessWidget {
 
 //error 기록 
 //1. TextFormField로 인해 pixel 넘어감 -> 높이 조정으로 pixel 맞춤.
+//Coment
+//1. 설명이 있으면 좋을 것 같아 주석 추가 작성. 오류 발생시 주석 삭제할 것.
