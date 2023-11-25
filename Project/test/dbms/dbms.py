@@ -193,6 +193,13 @@ class Database():
             print(e)
 
         return data
+    
+    def dataToUserList(self, data):
+        for i in data:
+            result = i
+            
+        return result
+            
        
     def terminate_connection(self):
         self.connection.close()

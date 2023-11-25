@@ -1,6 +1,6 @@
 # model.py
 
-from DBMS import Databass as DB
+from DBMS import Database as DB
 
 # 상속을 사용하여 구현하면 아래와 같이 구현
 #class MasterModel(DB):

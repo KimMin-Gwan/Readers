@@ -1,7 +1,7 @@
 # DBMS.py
 
 from constant import *
-import cx_Oracle
+import pymysql
 
 # 상속해서 만들어도가능
 # 의존성을 주입해서 사용해도 가능
@@ -9,29 +9,155 @@ import cx_Oracle
 
 
 # DBMS
-class Databass():
+class Database():
     def __init__(self):
-        self.connection = cx_Oracle.connect(username, password, dsn, encoding='UTF-8')
+        self.connection = pymysql.connect(host='3.37.23.159', user='root', password='0000', db='readers', encoding='UTF-8')
 
     # Query 실행부
-    def implement_query(self, query:str):
-        # query = "select * from table"
-        # 아래는 쿼리 실행문
+    def selectUser(self, id:str):
+        query = "select * from user where id = %s"
+
         cursor = self.connection.cursor()
-        cursor.execute(query) 
-
-        data = self.call_cursor(cursor) # 사용가능한 데이터로 변경
-
+        cursor.execute(query, (id))
+        
+        data = self.call_cursor(cursor)
+        
         cursor.close()
-        # 만약 찾아낸 데이터가 없다면 처리
+        
         if not len(data):
             return
 
-        result = self.work_something(data)  # 여기서 함수로 동작
+        result = self.work_something(data)
+
+        return result        
+        
+    def insertUser(self, id:str, password:str, name:str, phoneNumber:str, email:str):
+        query = "insert into user (id, password, name, phoneNumber, email) values (%s, %s, %s, %s, %s)"
+        
+        try: 
+            cursor = self.connection.cursor()
+            cursor.execute(query, (id, password, name, phoneNumber, email))
+            cursor.close()
+        except Exception as e:
+            return
+        
+    def updateUser(self, id:str, password:str, name:str, phoneNumber:str, email:str):
+        query = "update user set password = %s, name %s, phoneNumber = %s, email = %s where id = %s"
+        
+        try: 
+            cursor = self.connection.cursor()
+            cursor.execute(query(password, name, phoneNumber, email, id))
+            cursor.close()
+        except Exception as e:
+            return    
+        
+    def deleteUser(self, id:str):
+        query = "delete from user where id = %s"
+
+        try: 
+            cursor = self.connection.cursor()
+            cursor.execute(query(id))
+            cursor.close()
+        except Exception as e:
+            return
+        
+    def selectBook(self, bid:str):
+        query = "select * from book where bid = %s"
+
+        cursor = self.connection.cursor()
+        cursor.execute(query(bid))
+        
+        data = self.call_cursor(cursor)
+        
+        cursor.close()
+        
+        if not len(data):
+            return
+
+        result = self.work_something(data)
 
         return result
+          
+    def selectAllBook(self):
+        query = "select * from book"
 
+        cursor = self.connection.cursor()
+        cursor.execute(query)
+        
+        data = self.call_cursor(cursor)
+        
+        cursor.close()
+        
+        if not len(data):
+            return
 
+        result = self.work_something(data)
+
+        return result
+        
+    def selectReview(self, bid:str, writer:str):
+        query = "select * from review where bid = %s and writer = %s"
+
+        cursor = self.connection.cursor()
+        cursor.execute(query(bid, writer))
+        
+        data = self.call_cursor(cursor)
+        
+        cursor.close()
+        
+        if not len(data):
+            return
+
+        result = self.work_something(data)
+
+        return result 
+        
+    def insertReview(self, bid:str, writer:str, contents:str):
+        query = "insert into review (bid, writer, likes, contents, date) values (%s, %s, 0, %s, now())"
+
+        try: 
+            cursor = self.connection.cursor()
+            cursor.execute(query(bid, writer, contents))
+            cursor.close()
+        except Exception as e:
+            return
+        
+    def updateReview(self, bid:str, writer:str, likes:int, contents:str):
+        query = "update review set likes = %d, contents = %s, date = now() where bid = %s and writer = %s"
+
+        try: 
+            cursor = self.connection.cursor()
+            cursor.execute(query(likes, contents, bid, writer))
+            cursor.close()
+        except Exception as e:
+            return
+        
+    def deleteReview(self, bid:str, writer:str):
+        query = "delete from user where bid = %s and writer = %s"
+
+        try: 
+            cursor = self.connection.cursor()
+            cursor.execute(query(bid, writer))
+            cursor.close()
+        except Exception as e:
+            return
+        
+    def selectAllReview(self):
+        query = "select * from review"
+
+        cursor = self.connection.cursor()
+        cursor.execute(query)
+        
+        data = self.call_cursor(cursor)
+        
+        cursor.close()
+        
+        if not len(data):
+            return
+
+        result = self.work_something(data)
+
+        return result
 
     # 커서의 상태 및 현재 데이터 변환 후 반환
     def call_cursor(self, cursor):
@@ -50,9 +176,15 @@ class Databass():
             print(e)
 
         return data
+    
+    def dataToUserList(self, data):
+        for i in data:
+            result = i
+            
+        return result
+            
        
     def terminate_connection(self):
-        
         self.connection.close()
 
 
