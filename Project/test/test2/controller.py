@@ -56,7 +56,7 @@ class ClassWithUserModel(ClassWithModel):
     
 class User(ClassWithUserModel):
 
-    def getUid():
+    def getUid(self):
         pass
     def setUid(self,new_uid): #int
         self.uid = new_uid
@@ -162,50 +162,50 @@ class ClassWithBookModel(ClassWithModel):
         self.publisher = publisher
         pass
 
-    def getBid():
-        pass
+    def getBid(self):
+        return self.bid
 
-    def setBid(bid):
-        pass
+    def setBid(self, bid):
+        self.bid = bid
 
-    def getTitle():
-        pass
+    def getTitle(self):
+        return self.title
 
-    def setTitle(title):
-        pass
+    def setTitle(self, title):
+        self.title = title
 
-    def getAuthor():
-        pass
+    def getAuthor(self):
+        return self.author
 
-    def setAuthor(author):
-        pass
+    def setAuthor(self, author):
+        self.author = author
 
-    def getGenre():
-        pass
+    def getGenre(self):
+        return self.genre
 
-    def setGenre(genre):
-        pass
+    def setGenre(self, genre):
+        self.genre = genre
 
-    def getPublishedDate():
-        pass
+    def getPublishedDate(self):
+        return self.publishedDate
 
-    def setPublishedDate(publishedDate):
-        pass
+    def setPublishedDate(self, publishedDate):
+        self.publishedDate = publishedDate
 
     def get_data_from_model(self, *arg):
         pass
 
-    def getIntroduction():
-        pass
+    def getIntroduction(self):
+        return self.introduction
 
-    def setIntroduction(introduction):
-        pass
+    def setIntroduction(self, introduction):
+        self.introduction = introduction
 
-    def getContents():
-        pass
+    def getContents(self):
+        return self.contents
 
-    def setContents(contents):
-        pass
+    def setContents(self, contents):
+        self.contents = contents
 
     def setBook(bid,title,author,genre,publishedDate,introduction,contents):
         pass
