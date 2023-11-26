@@ -154,7 +154,7 @@ class Database():
 
         return result
 
-    # 커서의 상태 및 현재 데이터 변환 후 반환
+    # 커서의 상태 출력
     def call_cursor(self, cursor):
         print("Query Result")
         try:
@@ -170,6 +170,7 @@ class Database():
 
         return
     
+    # data -> class 변환
     def dataToUserList(self, datas):
         userList = []
         
@@ -182,7 +183,7 @@ class Database():
     def dataToUser(self, data):
         return User(data[0], data[1], data[2], data[3], data[4], data[5])
         
-    def dataToUserBook(self, datas):
+    def dataToBookList(self, datas):
         bookList = []
         
         for data in datas:
