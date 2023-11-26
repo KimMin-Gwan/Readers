@@ -20,14 +20,13 @@ class Database():
         cursor = self.connection.cursor()
         cursor.execute(query, (id))
         
-        data = self.call_cursor(cursor)
-        
+        data = cursor.fetchall()        
         cursor.close()
         
         if not len(data):
             return
-
-        result = self.work_something(data)
+        
+        result = self.dataToUser(data)
 
         return result        
         
@@ -67,14 +66,13 @@ class Database():
         cursor = self.connection.cursor()
         cursor.execute(query(bid))
         
-        data = self.call_cursor(cursor)
-        
+        data = cursor.fetchall()
         cursor.close()
         
         if not len(data):
             return
 
-        result = self.work_something(data)
+        result = self.dataToBook(data)
 
         return result
           
@@ -84,14 +82,13 @@ class Database():
         cursor = self.connection.cursor()
         cursor.execute(query)
         
-        data = self.call_cursor(cursor)
-        
+        data = cursor.fetchall()        
         cursor.close()
         
         if not len(data):
             return
 
-        result = self.work_something(data)
+        result = self.dataToBookList(data)
 
         return result
         
@@ -101,14 +98,13 @@ class Database():
         cursor = self.connection.cursor()
         cursor.execute(query(bid, writer))
         
-        data = self.call_cursor(cursor)
-        
+        data = cursor.fetchall()
         cursor.close()
         
         if not len(data):
             return
 
-        result = self.work_something(data)
+        result = self.dataToReview(data)
 
         return result 
         
@@ -148,20 +144,18 @@ class Database():
         cursor = self.connection.cursor()
         cursor.execute(query)
         
-        data = self.call_cursor(cursor)
-        
+        data = cursor.fetchall()
         cursor.close()
         
         if not len(data):
             return
 
-        result = self.work_something(data)
+        result = self.dataToReviewList(data)
 
         return result
 
     # 커서의 상태 및 현재 데이터 변환 후 반환
     def call_cursor(self, cursor):
-        data = []
         print("Query Result")
         try:
             print("Data Type :", type(cursor))
@@ -169,21 +163,49 @@ class Database():
             print("Details")
             for i, row in enumerate(cursor):
                 print(f"{i} : {row}")
-                data.append(row) # 필요에 따라 형변환 후 append
 
         except Exception as e:
             print("Cursor did not work well")
             print(e)
 
-        return data
+        return
     
-    def dataToUserList(self, data):
-        for i in data:
-            result = i
+    def dataToUserList(self, datas):
+        userList = []
+        
+        for data in datas:
+            user = User(data[0], data[1], data[2], data[3], data[4], data[5])
+            userList.append(user)
             
-        return result
+        return userList
+    
+    def dataToUser(self, data):
+        return User(data[0], data[1], data[2], data[3], data[4], data[5])
+        
+    def dataToUserBook(self, datas):
+        bookList = []
+        
+        for data in datas:
+            book = Book(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9])
+            bookList.append(book)
             
+        return bookList
+    
+    def dataToBook(self, data):
+        return Book(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9])
+            
+    def dataToReviewList(self, datas):
+       reviewList = []
        
+       for data in datas:
+           review = Review(data[0], data[1], data[2], data[3], data[4])
+           reviewList.append(review)
+           
+       return reviewList
+    
+    def dataToReview(self, data):
+        return Review(data[0], data[1], data[2], data[3], data[4])
+        
     def terminate_connection(self):
         self.connection.close()
 
