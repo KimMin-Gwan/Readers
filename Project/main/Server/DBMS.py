@@ -75,7 +75,55 @@ class Database():
         result = self.dataToBook(data)
 
         return result
-          
+     
+    def selectBookByTitle(self, title:str):
+        query = "select * from book where title like concat('%', %s, '%')"
+
+        cursor = self.connection.cursor()
+        cursor.execute(query(title))
+        
+        data = cursor.fetchall()        
+        cursor.close()
+        
+        if not len(data):
+            return
+
+        result = self.dataToBookList(data)
+
+        return result
+    
+    def selectBookByGenre(self, genre:str):
+        query = "select * from book where genre like concat('%', %s, '%')"
+
+        cursor = self.connection.cursor()
+        cursor.execute(query(genre))
+        
+        data = cursor.fetchall()        
+        cursor.close()
+        
+        if not len(data):
+            return
+
+        result = self.dataToBookList(data)
+
+        return result
+    
+    def selectBookByTitle(self, title:str):
+        query = "select * from book where title like concat('%', %s, '%')"
+
+        cursor = self.connection.cursor()
+        cursor.execute(query(title))
+        
+        data = cursor.fetchall()        
+        cursor.close()
+        
+        if not len(data):
+            return
+
+        result = self.dataToBookList(data)
+
+        return result
+           
     def selectAllBook(self):
         query = "select * from book"
 
@@ -154,6 +202,22 @@ class Database():
 
         return result
 
+    def selectReviewByTitle(self, title:str):
+            query = "select * from review where bid = (select bid from book where title like concat('%', %s, '%'))"
+
+            cursor = self.connection.cursor()
+            cursor.execute(query(title))
+            
+            data = cursor.fetchall()        
+            cursor.close()
+            
+            if not len(data):
+                return
+
+            result = self.dataToReviewList(data)
+
+            return result
+    
     # 커서의 상태 출력
     def call_cursor(self, cursor):
         print("Query Result")
