@@ -57,35 +57,41 @@ class ClassWithUserModel(ClassWithModel):
 class User(ClassWithUserModel):
 
     def getUid(self):
-        pass
-    def setUid(self,new_uid): #int
+        return self.uid
+
+    def setUid(self, new_uid): #int
         self.uid = new_uid
-        pass
-    def getId():
-        pass
-    def setId(self,new_id): #string
-        self.Id = new_id
-        pass
-    def getPassword():
-        pass
-    def setPassword(self,new_password): #string
-        self.Password = new_password
-        pass
-    def getName():
-        pass
-    def setName(self,new_name):
-        self.Name = new_name
-        pass
-    def getPhoneNumber():
-        pass
-    def setPhoneNumber(self,new_phonenumber): # string
+
+    def getId(self):
+        return self.id
+
+    def setId(self, new_id): #string
+        self.id = new_id
+
+    def getPassword(self):
+        return self.password
+
+    def setPassword(self, new_password): #string
+        self.password = new_password
+
+    def getName(self):
+        return self.name
+
+    def setName(self, new_name):
+        self.name = new_name
+
+    def getPhoneNumber(self):
+        return self.phonenumber
+
+    def setPhoneNumber(self, new_phonenumber): # string
         self.phonenumber = new_phonenumber
-        pass 
-    def getEmail():
-        pass
-    def setEmail(self,new_Email):
+
+    def getEmail(self):
+        return self.email
+
+    def setEmail(self, new_Email):
         self.email = new_Email
-        pass
+
     def setUser(self,new_uid,new_id,new_password,new_name,new_phonenumber,new_email):
 
         self.uid = new_uid
@@ -128,17 +134,35 @@ class Register(ClassWithUserModel):
 
     
 class Login(ClassWithUserModel):
-        pass
+        
+    def __init__(self, id, password):
+        self.id = id
+        self.password = password         
+    
+    def getId(self):
+        return self.id
+    
+    def getPassword(self):
+        return self.password
+
+    def checkLogin(self, id, password):
+        if id == self.getId() and password == self.getPassword():
+            return True
+        else:
+            return False
 
 class Find(ClassWithUserModel):
         
-    def __init__(self,input):
-        self.input = input             
-        pass
+    def __init__(self, email, phonenumber):
+        #self.input = input
+        self.email = email
+        self.phonenumber = phonenumber        
 
-    def findIdPassword():
-        Find.phonenumber
-        pass
+    def findIdPassword(self):
+        user
+        if user is None:
+            return None
+        return user
          
 class Profile(ClassWithUserModel):
         pass
