@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
                     Image.asset('camera.jpeg'),
                     VerticalDivider(thickness: 3,color: Colors.black,),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Spacer(),
                         Row(
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
                             Text('출판사',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
                             Container(
                               margin: EdgeInsets.only(left: 8),
-                              child: Text('출판사'),
+                              child: Text('우리집'),
 
                             )
                           ],
@@ -74,14 +75,8 @@ class MyApp extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Container(
-                              child: Row(
-                                children: [
-                                Icon(Icons.perm_identity_rounded),
-                                Text('저자',style: TextStyle(fontSize: 20)),
-                              ],),
-                            ),
-
+                            Icon(Icons.perm_identity_rounded),
+                            Text('저자',style: TextStyle(fontSize: 10)),
                             Container(
                               margin: EdgeInsets.only(left: 8),
                               child: Text('정현'),
