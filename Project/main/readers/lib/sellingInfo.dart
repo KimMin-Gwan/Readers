@@ -80,7 +80,7 @@ class bodyMenu extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
+                          Spacer(),
                           Text('출판사',style: TextStyle(fontSize: 15),),
                           Text('제목',style: TextStyle(fontSize: 20),),
                           Spacer(),
