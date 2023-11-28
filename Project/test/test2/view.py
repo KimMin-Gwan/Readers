@@ -8,7 +8,7 @@ from fastapi.websockets import WebSocketDisconnect
 import base64  # for image transfer
 import uvicorn
 
-from controller import Login, Register, Find
+from typing import List
 
 import requests
 import json
@@ -49,20 +49,52 @@ class AppServer():
             return {"message" : "Hello Readers"}
 
         # main_page list
-        @self.app.get("/item/main/{item_id}")
-        async def return_data(item_id : str):
-            items = self.controller.get_item_data(item_id)
-            if item_id not in items:
-                raise HTTPException(status_code=404, detail="Item not Found")
-            return {"item":items[item_id]}
+        class Book(BaseModel):
+            bid: str
+            title: str
+            author: str
+            genre: str
+            publishedDate: str
+            sale: int
+
+        @self.app.get("/item/main/{book_id}", response_model=List[Book])
+        async def main_booklist(book_id : str):
+            book = Book(
+                bid = book_id,
+                title = self.controller.getTitle(),
+                author = self.controller.getAuthor(),
+                genre = self.controller.getGenre(),
+                publishedDate = self.controller.getPublishedDate(),
+                sale = self.controller.getSale()
+            )
+            return [book]
         
-        # book list
+        # book list(date order)
         @self.app.get("/item/book/{item_id}")
         async def return_data(item_id : str):
             items = self.controller.get_book_list_data()  # book_list 
             if item_id not in items:
                 raise HTTPException(status_code=404, detail="Item not Found")
             return {"item":items[item_id]}
+        
+        # book store list
+        class Store(Book):
+            lowest_shop: str
+            lowest_price: int
+
+        @self.app.get("/item/main/{book_id}", response_model=List[Store])
+        async def storelist(book_id : str):
+            store = Store(
+                bid = book_id,
+                title = self.controller.getTitle(),
+                author = self.controller.getAuthor(),
+                genre = self.controller.getGenre(),
+                publishedDate = self.controller.getPublishedDate(),
+                sale = self.controller.getSale(),
+                #shop = lowest_shop,
+                #price = lowest_price
+            )
+            return [store]
         
 
         # Exception_Handle (page fault)
@@ -73,37 +105,87 @@ class AppServer():
             return {"item":"Page Not Found"}
         
         # login
+        class LoginData(BaseModel):
+            ID: str
+            PW : str
+
         @self.app.post("/login")
-        async def login(id: str, password: str):
-            login = Login(id, password)
-            if login.checkLogin(id, password):
-                return {"message" : "Login Success"}
+        async def login(data: LoginData):
+            login = self.controller.Login(data.ID, data.PW)
+            if login.checkLogin(data.ID, data.PW):
+                return {"result" : "true"}
             else:
                 raise HTTPException(status_code=401, detail="Login Failed")
         
         # register
+        class RegisterData(BaseModel):
+            ID: str
+            PW: str
+            name: str
+            phoneNumber: str
+            email: str
+
         @self.app.post("/register")
-        async def register(new_id: str, new_password: str, new_name: str, 
-                           new_email: str, new_phonenumber: str, new_uid: int):
-            if Register.checkIdDuplication(new_id):
-                raise HTTPException(status_code=409, detail="ID already exists")
-            Register.storeId(new_id)
-            Register.storePassword(new_password)
-            Register.storeName(new_name)
-            Register.storeEmail(new_email)
-            Register.storePhonenumber(new_phonenumber)
+        async def register(data: RegisterData):
+            if self.controller.checkIdDuplication(data.ID):
+                return {"result" : "false", "detail" : "100"}
+            self.controller.storeId(data.ID)
+            self.controller.storePassword(data.PW)
+            self.controller.storeName(data.name)
+            self.controller.storeEmail(data.email)
+            self.controller.storePhonenumber(data.phoneNumber)
             # uid 할당방법?
-            Register.storeUid(new_uid)
-            return {"message" : "Register Success"}
+            #self.controller.storeUid(data.uid)
+            return {"return" : "true"}
+            # detail?
         
         # find
+        class FindData(BaseModel):
+            ID: str
+            email: str
+
         @self.app.post("/find")
-        async def find(email: str, phonenumber: str):
-            find = Find(email, phonenumber)
+        async def find(data: FindData):
+            find = self.controller.Find(data.ID, data.email)
             user = find.findIdPassword()
             if user is None:
-                raise HTTPException(status_code=404, detail="User not Found")
+                return {"result" : "false", "detail": "Not_Found"}
             return {"id": find.id, "password": find.password}
+            # detail?
+
+        # change_pw
+        class NewPasswordData(LoginData):
+            newPassword: str
+
+        @self.app.post("/change_pw")
+        async def change_pw(data: NewPasswordData):
+            if self.controller.checkLogin(data.ID, data.PW):
+                self.controller.setPassword(data.newPassword)
+            else:
+                {"result" : "false", "detail" : "Not_Found"}
+
+        # bookdetail
+        class BookBidData(BaseModel):
+            bid: str
+
+        class BookDetailData(Book):
+            content: str
+            introduction: str
+
+        @self.app.post("/bookdetail", response_model = List[BookDetailData])
+        async def bookdetail(data: BookDetailData):
+            #if data.bid == self.controller.getBid()?
+            book = BookDetailData(
+                bid = data.bid,
+                title = self.controller.getTitle(),
+                author = self.controller.getAuthor(),
+                genre = self.controller.getGenre(),
+                publishedDate = self.controller.getPublishedDate(),
+                sale = self.controller.getSale(),
+                content = self.controller.getContent(),
+                introduction = self.controller.getIntroduction()
+            )
+            return [book]
 
     # 동작
     def run_server(self):

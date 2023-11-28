@@ -239,10 +239,10 @@ class Book(ClassWithModel):
 
 class BookList(ClassWithBookModel):
         
-    def __init__(self, title, author, publishdDate, publisher, numberReview, imageCover):
+    def __init__(self, title, author, publishedDate, publisher, numberReview, imageCover):
         self.title = title
         self.author = author
-        self.publishedDate = publishdDate
+        self.publishedDate = publishedDate
         self.publisher = publisher
         #self.numberReview = numberReview
         self.imageCover = imageCover
