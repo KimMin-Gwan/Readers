@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Flexible(child: Container(height: 300,
-                color: Colors.pink,
+                color: Colors.white70,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
