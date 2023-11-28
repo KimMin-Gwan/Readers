@@ -2,8 +2,8 @@ import "package:flutter/material.dart";
 import "./search.dart" as search;
 
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class BuyPage extends StatelessWidget {
+  const BuyPage ({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -108,13 +108,25 @@ class Home extends StatelessWidget {
                               ),
                             ]
                           ),
-                          Container(
-                              padding: EdgeInsets.all(1),
-                              child: ElevatedButton(
-                                onPressed: (){
-                                },
-                                child: Text("상세 정보"),
-                              )
+                          Row(
+                              children: [
+                                Container(
+                                    padding: EdgeInsets.all(1),
+                                    child: ElevatedButton(
+                                      onPressed: (){
+                                      },
+                                      child: Text("판매 정보"),
+                                    )
+                                ),
+                                Container(
+                                    padding: EdgeInsets.all(1),
+                                    child: ElevatedButton(
+                                      onPressed: (){
+                                      },
+                                      child: Text("상세 정보"),
+                                    )
+                                ),
+                              ]
                           ),
                         ],
                       )

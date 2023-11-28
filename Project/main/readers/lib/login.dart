@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+import './main.dart' as main;
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class loginPage extends StatelessWidget {
+  const loginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +13,7 @@ class MyApp extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/background.png'),
+                  image: AssetImage('./background.png'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -132,7 +129,11 @@ class _LoginFormState extends State<LoginForm> {
                   if (_formKey.currentState!.validate()) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('처리 중...')),
-                    ); // validate 메서드가 true를 반환, 입력필드 유효(null return 띄우는 역할도 함.)
+                    );// validate 메서드가 true를 반환, 입력필드 유효(null return 띄우는 역할도 함.)
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const main.MyApp())
+                    );
                   }
                 },
                 child: const Text('로그인'),
