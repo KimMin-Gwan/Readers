@@ -8,6 +8,7 @@ from fastapi.websockets import WebSocketDisconnect
 import base64  # for image transfer
 import uvicorn
 
+from controller import Login, Register, Find
 
 import requests
 import json
@@ -71,6 +72,39 @@ class AppServer():
                 raise HTTPException(status_code=403, detail="Page Not Found")
             return {"item":"Page Not Found"}
         
+        # login
+        @self.app.post("/login")
+        async def login(id: str, password: str):
+            login = Login(id, password)
+            if login.checkLogin(id, password):
+                return {"message" : "Login Success"}
+            else:
+                raise HTTPException(status_code=401, detail="Login Failed")
+        
+        # register
+        @self.app.post("/register")
+        async def register(new_id: str, new_password: str, new_name: str, 
+                           new_email: str, new_phonenumber: str, new_uid: int):
+            if Register.checkIdDuplication(new_id):
+                raise HTTPException(status_code=409, detail="ID already exists")
+            Register.storeId(new_id)
+            Register.storePassword(new_password)
+            Register.storeName(new_name)
+            Register.storeEmail(new_email)
+            Register.storePhonenumber(new_phonenumber)
+            # uid 할당방법?
+            Register.storeUid(new_uid)
+            return {"message" : "Register Success"}
+        
+        # find
+        @self.app.post("/find")
+        async def find(email: str, phonenumber: str):
+            find = Find(email, phonenumber)
+            user = find.findIdPassword()
+            if user is None:
+                raise HTTPException(status_code=404, detail="User not Found")
+            return {"id": find.id, "password": find.password}
+
     # 동작
     def run_server(self):
         print("SYSTEM_CALL::STARTING SERVER")

@@ -60,19 +60,32 @@ class UserModel(DB):
         self.user = User() 
         pass
 
-    def get_data(self,User):
-        query = f'select * from {book} where {User}'
+    def get_data(self, user):
+        query = f'select * from {user}'
         # 이것과 유사하게 작성
         #data = self.implement_query( query = query)
         pass
 
 class User:
-    utd:int = 0
+    uid:int = 0
     id:str = "Default"
     password:str = "Default"
     name:str = "Default"
     PhoneNumber:int = "Default"
     email:str = "Default"
+
+class ReviewModel(DB):
+
+    def __init__(self):
+        self.review = Review()
+        pass
+
+    def get_data(self, review):
+        query = f'select * from {review}'
+        # 이것과 유사하게 작성
+        #data = self.implement_query( query = query)
+        pass
+
 
 class Review:
     writer:str = "Default"
