@@ -87,7 +87,6 @@ class AppServer():
                            new_email: str, new_phonenumber: str, new_uid: int):
             if Register.checkIdDuplication(new_id):
                 raise HTTPException(status_code=409, detail="ID already exists")
-            self.controller.storeId(new_id)
             Register.storeId(new_id)
             Register.storePassword(new_password)
             Register.storeName(new_name)
