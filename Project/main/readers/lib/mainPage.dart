@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "./search.dart" as search;
-
+import "./bookInfo.dart";
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -112,6 +112,7 @@ class Home extends StatelessWidget {
                               padding: EdgeInsets.all(1),
                               child: ElevatedButton(
                                 onPressed: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const BookInfo()));
                                 },
                                 child: Text("상세 정보"),
                               )

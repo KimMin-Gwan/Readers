@@ -1,42 +1,15 @@
 import 'package:flutter/material.dart';
+import './reviewPage.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class SellingInfo extends StatelessWidget {
+  const SellingInfo({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-          appBar:AppBar(
-            shape: Border(
-                bottom: BorderSide(
-                  color: Colors.black,
-                  width: 1,
-                )
-            ),
-            //READERS 제목 출력부분
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('READERS',style: TextStyle(fontWeight: FontWeight.bold),),
-                Text('판매정보',style: TextStyle(fontWeight: FontWeight.bold),),
+      home : Scaffold(
 
-              ],
-            ),
-            actions: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SizedBox(width: 500),
-                  Icon(Icons.chrome_reader_mode),
-                ],
-              )
-            ],
-          ) ,
-          body: Column(
+
+        body:Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Flexible(child: Container(height: 300,
@@ -106,7 +79,7 @@ class MyApp extends StatelessWidget {
                               margin: EdgeInsets.only(left: 8), // 원하는 간격으로 조절
                               child: ElevatedButton(
                                 onPressed: () {
-                                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>const ReviewPage()));
+                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>const ReviewPage()));
                                 },
                                 child: Text('리뷰 보기'),
                               ),
@@ -141,9 +114,8 @@ class MyApp extends StatelessWidget {
                   ],
                 )),
             ],
-          ),
-        bottomNavigationBar:Bmenu(),
-          )
+        )
+      )
     );
   }
 }

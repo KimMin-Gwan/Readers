@@ -1,49 +1,16 @@
-import 'package:equip/review_page.dart';
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const MyApp());
-}
+import './reviewPage.dart';
 
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class EquipPage extends StatelessWidget {
+  const EquipPage ({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-          appBar:AppBar(
-            shape: Border(
-                bottom: BorderSide(
-                  color: Colors.black,
-                  width: 1,
-                )
-            ),
-            //READERS 제목 출력부분
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('READERS',style: TextStyle(fontWeight: FontWeight.bold),),
-
-              ],
-
-            ),
-            //사진과 나머지 appbar출력 부분
-            actions: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text('판매정보',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18,)),
-                  SizedBox(width: 500),
-                  Icon(Icons.chrome_reader_mode),
-                ],
-              )
-            ],
-
-          ) ,
           body: bodyMenu(),
-          bottomNavigationBar:Bmenu(),
+          //bottomNavigationBar:Bmenu(),
         )
     );
   }

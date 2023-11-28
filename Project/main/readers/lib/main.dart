@@ -3,7 +3,8 @@ import './style.dart' as style;
 import './mainPage.dart' as mainPage;
 import './buyPage.dart' as buyPage;
 import './profile.dart' as profile;
-
+import './settingPage.dart' as setting;
+import "./camaraPage.dart" as cameraPage;
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -51,8 +52,9 @@ class _MyAppState extends State<MyApp> {
         //),
         body: [mainPage.Home(),
           buyPage.BuyPage(),
-          Text('카메라'),
-          Text('설정'),
+          Text('Camera'),
+          //cameraPage.CameraPage();
+          setting.Setting(),
           profile.Profile(),
           mainPage.Home(),
           ][tab],

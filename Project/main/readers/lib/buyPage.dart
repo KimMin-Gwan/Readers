@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import "./search.dart" as search;
+import "./sellingInfo.dart";
+import "./bookInfo.dart";
 
 
 class BuyPage extends StatelessWidget {
@@ -72,40 +74,6 @@ class BuyPage extends StatelessWidget {
                                   ]
                                 )
                               ),
-                              Container(
-                                  child: Column(
-                                      children:[
-                                        Container(
-                                          padding: EdgeInsets.all(1),
-                                          child:Row (
-                                              children: [
-                                                Icon(Icons.calendar_month),
-                                                TextButton(
-                                                    onPressed: (){Navigator.push(context,
-                                                      MaterialPageRoute(builder: (context) => search.SearchAuthor()),
-                                                    );
-                                                    },
-                                                    child: Text("2021년 08월 26일"))
-                                              ]
-                                          ),
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.all(1),
-                                          child:Row (
-                                              children: [
-                                                Icon(Icons.share_location),
-                                                TextButton(
-                                                    onPressed: (){Navigator.push(context,
-                                                      MaterialPageRoute(builder: (context) => search.SearchAuthor()),
-                                                    );
-                                                    },
-                                                    child: Text("판매처"))
-                                              ]
-                                          ),
-                                        ),
-                                      ]
-                                  )
-                              ),
                             ]
                           ),
                           Row(
@@ -114,6 +82,7 @@ class BuyPage extends StatelessWidget {
                                     padding: EdgeInsets.all(1),
                                     child: ElevatedButton(
                                       onPressed: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const SellingInfo()));
                                       },
                                       child: Text("판매 정보"),
                                     )
@@ -122,6 +91,7 @@ class BuyPage extends StatelessWidget {
                                     padding: EdgeInsets.all(1),
                                     child: ElevatedButton(
                                       onPressed: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const BookInfo()));
                                       },
                                       child: Text("상세 정보"),
                                     )

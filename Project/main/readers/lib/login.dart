@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './find.dart' as find;
 import './main.dart' as main;
 
 class loginPage extends StatelessWidget {
@@ -148,7 +149,7 @@ class _LoginFormState extends State<LoginForm> {
                 //새로운 화면으로 이동(새 화면 푸쉬)
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
+                  MaterialPageRoute(builder: (context) => find.FindIDPW()),
                 ); //아이디/비밀번호 찾는 화면으로 빌드
               },
               child: Text('> 아이디/비밀번호 찾기')),

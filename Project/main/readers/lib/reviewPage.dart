@@ -6,33 +6,10 @@ class ReviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar:AppBar(
-        shape: Border(
-            bottom: BorderSide(
-              color: Colors.black,
-              width: 1,
-            )
-        ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('READERS',style: TextStyle(fontWeight: FontWeight.bold),),
-
-          ],
-        ),
-        actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text('리뷰',style: TextStyle(fontWeight:FontWeight.w900,fontSize: 18,)),
-              SizedBox(width: 550),
-              Icon(Icons.chrome_reader_mode),
-            ],
-          )
-        ],
-      ) ,
-      body:reviewbody()
+    return MaterialApp(
+      home: Scaffold(
+        body:reviewbody()
+      )
     );
   }
 }

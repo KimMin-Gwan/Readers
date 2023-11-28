@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 
-
-
 class Profile extends StatelessWidget {
   const Profile ({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
-          appBar: AppBar(title: Text('Readers'),
-          ),
-          body: Column(
+    return Column(
             children: [
               Container(
                 padding: EdgeInsets.fromLTRB(20, 10, 0, 15),
@@ -98,9 +92,6 @@ class Profile extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-          bottomNavigationBar: BottomAppBar(), //추후에 넣을 것
-        ),
     );
   }
 
