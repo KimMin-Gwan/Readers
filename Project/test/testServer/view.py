@@ -44,7 +44,7 @@ class AppServer():
             return return_data
 
     def run_server(self):
-        uvicorn.run(self.app, host="0.0.0.0", port=5000)
+        uvicorn.run(self.app, host="172.31.42.115", port=5000)
 
 if __name__ == "__main__":
     app = AppServer()
