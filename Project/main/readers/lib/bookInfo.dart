@@ -37,9 +37,12 @@ class bodyMenu extends StatelessWidget {
                    Flexible(
                      flex:1,
                      child: Container( //Container()를 2개를 사용할 필요성?
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                       child: Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           SizedBox(
+                             height: 250,
+                           ),
                           Text('출판사',style: TextStyle(fontSize: 15),),
                           Text('제목',style: TextStyle(fontSize: 20),),
                           Row(
@@ -57,20 +60,28 @@ class bodyMenu extends StatelessWidget {
                               Text('리뷰수',style:TextStyle(fontSize: 10)),
                             ],
                           ),
-                        Row(
+                        Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(Icons.date_range),
-                            Text('날짜',style:TextStyle(fontSize: 10)),
-                            Spacer(),
-                            ElevatedButton(onPressed: (){
+                            Row(
+                              children: [
+                                Icon(Icons.date_range),
+                                Text('날짜',style:TextStyle(fontSize: 10)),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            ElevatedButton(
+                              onPressed: (){
                               Navigator.push(context,
                                   MaterialPageRoute(
                                       builder: (context)=>const ReviewPage()
                                   ),
                               );
                               },
-                                child: Text('리뷰 보기')),
+                                child: Text('리뷰 보기'),
+                            ),
                       ],
                     )
                   ],
