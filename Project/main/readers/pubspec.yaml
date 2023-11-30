@@ -82,5 +82,15 @@ flutter:
         - asset: assets/fonts/Champignon.otf
           weight: 100
 
+    - family: Dalfitra
+      fonts:
+        - asset: assets/fonts/Dalfitra.otf
+          weight: 100
+
+    - family: Smooch
+      fonts:
+        - asset: assets/fonts/Smooch-Regular.ttf
+          weight: 100
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

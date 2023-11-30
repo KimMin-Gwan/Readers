@@ -158,7 +158,11 @@ class MainAppBar extends StatelessWidget {
                     )
                   ),
                   child: Text("Readers",
-                  style: TextStyle(fontSize: 20))
+                  style: TextStyle(
+                      fontSize: 25,
+                      //fontFamily: "Smooch", //폰트 설정
+                  ),
+                  ),
                 )
             ),
             flex:1,
