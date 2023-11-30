@@ -30,7 +30,12 @@ class AppServer():
         # 메인 페이지 데이터 전송
         @self.app.get('/homePage')
         async def getHomePage():
-            result = self.controller.get_book_list_data("mainPage")
+            result = self.controller.get_book_data("mainPage") #dict
+            return result
+        
+        @self.app.get('/homePage/{bid}')
+        async def getHomePage():
+            result = self.controller.#dict
             return result
 
     def run_server(self):

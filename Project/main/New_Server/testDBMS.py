@@ -25,7 +25,6 @@ class Book():
             'publishedDate': self.publishedDate,
             'introduction': self.introduction,
             'contents': self.contents,
-            'purchaseLink': self.purchaseLink,
             'numSearch': self.numSearch,
             'publisher': self.publisher
         }

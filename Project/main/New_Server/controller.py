@@ -12,7 +12,7 @@ class Master_Controller():
 
     # 책 데이터 요청
     # flag |  "mainPage", "detail", "sale"
-    def get_book_list_data(self, flag): 
+    def get_book_data(self, flag): 
         result = self.book_detail.get_data(flag)
         return result
     
@@ -30,8 +30,8 @@ class BookDetailView():
         if flag == "mainPage":
             result = self.__sort_book(books, flag="date")  # 날짜 순으로 정렬
             result = result[:len(result)//2] # 전체 데이터 중 1/2만 보내기
-            print(result)
             result = self.__book2dict(result, flag=flag) # dict 타입으로 변경
+            #print(result)
         elif flag == "detail":
             # 책 상세 정보일때 사용할 내용 추가
             pass
@@ -60,7 +60,7 @@ class BookDetailView():
             print("hello")
             for book in bookList:
                 result = book.data2DictforMainPage()
-                print(result)
+                #print(result)
                 dictDataList.append(result)
 
         # 디테일 페이지 일때

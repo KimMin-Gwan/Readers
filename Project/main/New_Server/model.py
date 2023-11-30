@@ -24,6 +24,7 @@ class MasterModel():
         result = []
         try:
             # 책 데이터는 전부다 가지고 온다
+            # List<Book>
             result = self.dbms.selectAllBook()
         except Exception as e:
             print("ERROR || Can't get data from db")
