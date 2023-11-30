@@ -71,12 +71,12 @@ class SubBookINfo extends StatelessWidget {
                             SizedBox(
                               height: 250,
                             ),
-                            Text(this.bookInfoData["publisher"],style: TextStyle(fontSize: 15),),
-                            Text(this.bookInfoData["title"],style: TextStyle(fontSize: 20),),
+                            Text(this.bookInfoData[0]["publisher"],style: TextStyle(fontSize: 15),),
+                            Text(this.bookInfoData[0]["title"],style: TextStyle(fontSize: 20),),
                             Row(
                               children: [
                                 Icon(Icons.perm_identity_rounded),
-                                Text(this.bookInfoData["author"],
+                                Text(this.bookInfoData[0]["author"],
                                   style:TextStyle(
                                       fontSize: 10),
                                 ),
@@ -94,7 +94,7 @@ class SubBookINfo extends StatelessWidget {
                                 Row(
                                   children: [
                                     Icon(Icons.date_range),
-                                    Text(this.bookInfoData["publishedDate"],style:TextStyle(fontSize: 10)),
+                                    Text(this.bookInfoData[0]["publishedDate"],style:TextStyle(fontSize: 10)),
                                   ],
                                 ),
                                 SizedBox(
@@ -140,7 +140,7 @@ class SubBookINfo extends StatelessWidget {
                         Text("내용 요약")
                       ],
                     ),//소개
-                    Text(this.bookInfoData["introduction"])
+                    Text(this.bookInfoData[0]["introduction"])
                   ],
                 )
             ),
@@ -163,7 +163,7 @@ class SubBookINfo extends StatelessWidget {
                         Text("장르")
                       ],
                     ),//장르
-                    Text(this.bookInfoData["genre"])
+                    Text(this.bookInfoData[0]["genre"])
                   ],
                 ),
               )),
@@ -179,7 +179,7 @@ class SubBookINfo extends StatelessWidget {
                         Text("줄거리")
                       ],
                     ),
-                    Text(this.bookInfoData["contents"])
+                    Text(this.bookInfoData[0]["contents"])
                   ],
                 ),
               )),

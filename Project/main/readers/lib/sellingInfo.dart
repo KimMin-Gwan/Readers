@@ -68,7 +68,7 @@ class SubSellInfo extends StatelessWidget {
                         Text("출판사",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)),
                         Container(
                           margin: EdgeInsets.only(left: 8),
-                          child: Text(this.sellInfoData["publisher"]),
+                          child: Text(this.sellInfoData[0]["publisher"]),
 
                         )
                       ],
@@ -79,7 +79,7 @@ class SubSellInfo extends StatelessWidget {
                         Text("제목",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                         Container(
                             margin: EdgeInsets.only(left: 8),
-                            child:Text(this.sellInfoData["title"])
+                            child:Text(this.sellInfoData[0]["title"])
                         )
                       ],
                     ),
@@ -91,7 +91,7 @@ class SubSellInfo extends StatelessWidget {
                         Text('저자',style: TextStyle(fontSize: 10)),
                         Container(
                           margin: EdgeInsets.only(left: 8),
-                          child: Text(this.sellInfoData["author"]),
+                          child: Text(this.sellInfoData[0]["author"]),
                         )
                       ],
                     ),
@@ -139,7 +139,7 @@ class SubSellInfo extends StatelessWidget {
                   ListTile(title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(this.sellInfoData["purchaseLink"]),
+                      Text(this.sellInfoData[0]["purchaseLink"]),
                       Text('8000원')
                     ],
                   ),),
