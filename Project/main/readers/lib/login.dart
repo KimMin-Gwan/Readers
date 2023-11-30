@@ -46,12 +46,16 @@ class loginPage extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 100,
+              bottom: 70,
               left: 0,
               right: 0,
               child: Text(
                 'Readers',
-                style: TextStyle(fontSize: 40, color: Colors.white),
+                style: TextStyle(
+                  fontFamily: "Champignon",
+                    fontSize: 70,
+                    color: Colors.white,
+                ),
                 textAlign: TextAlign.center,
               ),
             )
