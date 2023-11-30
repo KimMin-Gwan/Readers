@@ -31,31 +31,16 @@ class MasterModel():
             print(e)
 
         return result
+    
+    # 특정 책 상세정보 호출
+    def get_book(self, bid):
+        try:
+            result = self.dbms.selectBook(bid)
+        except Exception as e:
+            print("ERROR || Can't get data from db")
+            print(e)
 
-
-
-        
-
-
-class User():
-    def __init__(self, uid, id, pw, name, phone, email):
-        self.uid = uid
-        self.id = id
-        self.pw = pw
-        self.name = name
-        self.phone = phone
-        self.email = email
-
-
-
-class Review():
-    def __init__(self, writer, likes, contents, bid, date):
-        self.writer = writer # 작성자
-        self.likes = likes
-        self.contents = contents
-        self.bid = bid # 리뷰를 저장한 책의 번호
-        self.date = date # 리뷰 작성일
-
+        return result
 
 
 
