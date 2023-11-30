@@ -64,7 +64,7 @@ class AppServer():
             return result
 
     def run_server(self):
-        uvicorn.run(self.app, host="127.0.0.1", port = 8000)
+        uvicorn.run(self.app, host="121.182.49.202", port = 8000)
 
     
 
