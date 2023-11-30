@@ -77,6 +77,9 @@ class Book(ClassWithBookModel):
         self.introduction = new_introduction
         self.contents = new_contents
 
+    def getSale(self):
+        pass
+
 
 class BookList(ClassWithBookModel):
 

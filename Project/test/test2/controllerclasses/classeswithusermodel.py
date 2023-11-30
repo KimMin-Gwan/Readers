@@ -1,100 +1,89 @@
 # usermodel을 사용하는 클래스들
+from fastapi import HTTPException
+
+from Project.test.test2.model import UserModel
+
 
 class ClassWithUserModel():
+    def __init__(self):
+        self.user_model = UserModel()
 
-    def __init__(self, uid, id, pw, name, phonenumber, email):
-        self.uid = uid
-        self.id = id
-        self.password = pw
-        self.name = name
-        self.phonenumber = phonenumber
-        self.email = email
+    def create_user(self, id, password, name, phoneNumber, email):
+        return self.user_model.add_user(id, password, name, phoneNumber, email)
 
-    def get_data_from_model(self, *arg):
-        pass
+    def get_user(self, id):
+        user = self.user_model.get_user(id)
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        return user
 
+    def update_user(self, id, password, name, phoneNumber, email):
+        self.user_model.update_user(id,password,name,phoneNumber,email)
+
+    def delete_user(self, id):
+        self.user_model.delete_user(id)
 
 class User(ClassWithUserModel):
 
     def getUid(self):
-        return self.uid
-
-    def setUid(self, new_uid):  # int
-        self.uid = new_uid
+        User.get_user(self,id)
+        return User.get_user.uid
 
     def getId(self):
+        User.get_user(self,id)
         return self.id
 
     def setId(self, new_id):  # string
-        self.id = new_id
+        User.update_user(id=new_id)
 
     def getPassword(self):
+        User.get_user(self,id)
         return self.password
 
     def setPassword(self, new_password):  # string
+        User.update_user(password=new_password)
         self.password = new_password
 
-    def getName(self):
-        return self.name
-
-    def setName(self, new_name):
-        self.name = new_name
-
     def getPhoneNumber(self):
+        User.get_user(self,id)
         return self.phonenumber
 
     def setPhoneNumber(self, new_phonenumber):  # string
-        self.phonenumber = new_phonenumber
+        User.update_user(phoneNumber=new_phonenumber)
 
     def getEmail(self):
+        User.get_user(self,id)
         return self.email
+    def setEmail(self, new_email):
+        User.update_user(email=new_email)
 
-    def setEmail(self, new_Email):
-        self.email = new_Email
-
-    def setUser(self, new_uid, new_id, new_password, new_name, new_phonenumber, new_email):
-        self.uid = new_uid
-        self.id = new_id
-        self.password = new_password
-        self.name = new_name
-        self.Phonenumber = new_phonenumber
-        self.email = new_email
-
-    def get_data_from_model(User, *arg):
-        pass
+    def setUser(self, new_id, new_password, new_phonenumber, new_email):
+        User.update_user(id=new_id,password=new_password,phoneNumber=new_phonenumber,email=new_email)
 
 
 class Register(ClassWithUserModel):
 
     def checkIdDuplication(self, new_id):
-        id  # db.id 비교
 
-    def storeId(self, new_id):
+        data = User.get_user(id=new_id)
+        print(data.id)
+        return
+    # db.id 비교
 
-        self.id = new_id  # 입력받은 id를 db에 저장
+    def storeId(self,new_id):
+        User.update_user(id=new_id)
 
     def storePassword(self, new_password):
-        self.password = new_password  # db에 저장
-
-    def storeName(self, new_name):
-        self.name = new_name # db에 저장
+        User.update_user(password=new_password)
 
     def storeEmail(self, new_email):
-        self.email = new_email
+        User.update_user(email=new_email)
 
-    def storePhonenumber(self, new_phonenumber):
-        self.phonenumber = new_phonenumber
-
-    def storeUid(uid):
-        uid
+    def storePhonenumber(self, new_phoneNumber):
+        User.update_user(phoneNumber=new_phoneNumber)
 
 
 class Login(ClassWithUserModel):
-
-    def __init__(self, id, password):
-
-        self.id = id
-        self.password = password
 
     def getId(self):
         return self.id
@@ -111,16 +100,12 @@ class Login(ClassWithUserModel):
 
 class Find(ClassWithUserModel):
 
-    def __init__(self, email, phonenumber):
-        # self.input = input
-        self.email = email
-        self.phonenumber = phonenumber
-
     def findIdPassword(self):
-        user
-        if user is None:
-            return None
-        return user
+        # user
+        #if user is None:
+        #    return None
+        #return user
+        pass
 
 
 class Profile(ClassWithUserModel):

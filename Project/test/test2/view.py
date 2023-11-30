@@ -7,10 +7,11 @@ from starlette.middleware.cors import CORSMiddleware
 from fastapi.websockets import WebSocketDisconnect
 import base64  # for image transfer
 import uvicorn
-
+from model import Book
+from model import User
 from typing import List
-
-import requests
+from controller import Master_Controller
+from Project.main.Server import constant
 import json
 
 
@@ -26,7 +27,7 @@ import json
 class AppServer():
     def __init__(self, controller):
         self.app = FastAPI()
-        self.controller = controller
+        self.controller = Master_Controller
 
         
         # middle ware accept
@@ -49,23 +50,16 @@ class AppServer():
             return {"message" : "Hello Readers"}
 
         # main_page list
-        class Book(BaseModel):
-            bid: str
-            title: str
-            author: str
-            genre: str
-            publishedDate: str
-            sale: int
 
-        @self.app.get("/item/main/{book_id}", response_model=List[Book])
+        @self.app.get("/item/main/{book_id}", response_model=Book)
         async def main_booklist(book_id : str):
             book = Book(
                 bid = book_id,
-                title = self.controller.getTitle(),
-                author = self.controller.getAuthor(),
-                genre = self.controller.getGenre(),
-                publishedDate = self.controller.getPublishedDate(),
-                sale = self.controller.getSale()
+                title = self.controller.Book.getTitle(),
+                author = self.controller.Book.getAuthor(),
+                genre = self.controller.Book.getGenre(),
+                publishedDate = self.controller.Book.getPublishedDate(),
+                sale = self.controller.Book.getSale()
             )
             return [book]
         
@@ -113,32 +107,17 @@ class AppServer():
         async def login(data: LoginData):
             login = self.controller.Login(data.ID, data.PW)
             if login.checkLogin(data.ID, data.PW):
-                return {"result" : "true"}
+                return { "result" : "true" }
             else:
                 raise HTTPException(status_code=401, detail="Login Failed")
-        
-        # register
-        class RegisterData(BaseModel):
-            ID: str
-            PW: str
-            name: str
-            phoneNumber: str
-            email: str
 
         @self.app.post("/register")
-        async def register(data: RegisterData):
-            if self.controller.checkIdDuplication(data.ID):
+        async def register(data:User):
+            if self.controller.checkIdDuplication(data.ID) == True:
+                return Master_Controller.Register.create_user(id=User.ID,password=User.password,phoneNumber=User.phoneNumber,email=User.email)
+            else:
                 return {"result" : "false", "detail" : "100"}
-            self.controller.storeId(data.ID)
-            self.controller.storePassword(data.PW)
-            self.controller.storeName(data.name)
-            self.controller.storeEmail(data.email)
-            self.controller.storePhonenumber(data.phoneNumber)
-            # uid 할당방법?
-            #self.controller.storeUid(data.uid)
-            return {"return" : "true"}
-            # detail?
-        
+
         # find
         class FindData(BaseModel):
             ID: str
@@ -186,6 +165,7 @@ class AppServer():
                 introduction = self.controller.getIntroduction()
             )
             return [book]
+
 
     # 동작
     def run_server(self):
