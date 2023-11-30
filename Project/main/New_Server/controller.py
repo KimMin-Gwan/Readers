@@ -9,6 +9,8 @@ class Master_Controller():
         #self.cover_search = Cover_Search_Controller(model)
         self.book_detail = BookDetailView(model)
         self.login = LoginView(model)
+        self.register = RegisterView(model)
+        self.find = FindView(model)
 
     # 책 데이터 요청
     # flag |  "mainPage", "detail", "sale", "sale_detail"
@@ -17,10 +19,25 @@ class Master_Controller():
         return result
     
     # 유저 id, pw 정보 요청
-    def get_user_data(self, id, pw):
+    def get_login_data(self, id, pw):
         result = self.login.checkLogin(id, pw) 
         return result
     
+    def get_user_data(self, uid, id, pw, name, phone, email):
+        result = self.register.checkIdDuplication(uid, id, pw, name, phone, email)
+        return result
+    
+    # id찾기
+    def get_id_data(self, name, email):
+        result = self.find.get_ID(name, email)
+        return result
+    
+    # pw찾기
+    def get_pw_data(self, id, name, email):
+        result = self.find.get_PW(id, name, email)
+        return result
+    
+
 
 # 베이스 클래스
 # 아래에서 상속하여 구현하길 권장
@@ -47,8 +64,15 @@ class BookDetailView():
             # 책 상세 정보일때 사용할 내용 추가
 
         # 구매 페이지
-
+        elif flag == "store":
+            books = self.model.get_book_list()
+            # 정렬 생략
+            result = self.__book2dict(result, flag="store") # dict 타입으로 변경
+            
         # 구매 상세 페이지
+        elif flag == "store_detail":
+            book = self.model.get_book(bid)
+            result = self.__book2dict(book, flag="store_detail")
         
         return result
 
@@ -84,6 +108,18 @@ class BookDetailView():
                 result = book.data2DictforDetail()
                 dictDataList.append(result)
 
+        # 도서구매 페이지 일때
+        elif flag == "store":
+            for book in bookList:
+                result = book.data2DictforStore()
+                dictDataList.append(result)
+
+        # 도서구매 상세페이지 일때
+        elif flag == "store_detail":
+            for book in bookList:
+                result = book.data2DictforStoreDetail()
+                dictDataList.append(result)
+
         return dictDataList
 
 # 로그인 클래스   
@@ -97,22 +133,43 @@ class LoginView():
         id_result = self.model.find_valid_id(id)
 
         if id_result == None:
-            return {"result":"false", "bid":-1}
+            return {"result":"false", "uid":-1}
         
         # id를 넣으면 pw가 나오는 함수
         pw_result, uid = self.model.find_pw(id)  
 
         if pw != pw_result:
-            return {"result":"false", "bid":-1}
+            return {"result":"false", "uid":-1}
         else:
-            return {"result":"true", "bid":uid}
+            return {"result":"true", "uid":uid}
 
-    # 회원가입
+# 회원가입
+class RegisterView():
+    def __init__(self, model):
+        self.model:MasterModel = model
 
-    # 아이디 찾기
+    # ID 중복 확인
+    def checkIdDuplication(self, uid, id, pw, name, phone, email):
+        id_result = self.model.find_valid_id(id)
+        if len(id_result) != 0:
+            return {"result":"false"}
+        else:
+            self.model.insertUser(uid, id, pw, name, phone, email)
+            return {"result":"true"}
 
-    # 비밀번호 찾기
-        
+
+ # 아이디, 비밀번호 찾기           
+class FindView():
+    def __init__(self, model):
+        self.model:MasterModel = model
+
+    def get_ID(self, name, email):
+        result = self.model.get_id(name, email)
+        return {"id" : result}
+
+    def get_PW(self, id, name, email):
+        result = self.model.get_pw(id, name, email)
+        return {"pw" : result}
 
 # 상품 
 
