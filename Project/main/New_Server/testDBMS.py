@@ -92,6 +92,12 @@ class Database():
     def selectAllBook(self):
         return books
     
-    def selectBook(self, bid):
-        return book
+    def selectBook(self, bid):      
+
+        for book in books:
+            if book.bid == bid:
+                result = book
+                break
+            
+        return result 
 

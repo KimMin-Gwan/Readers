@@ -41,7 +41,30 @@ class MasterModel():
             print(e)
 
         return result
+    
+    def find_valid_id(self, id):
+        try:
+            result = self.dbms.selectUser(id)
+            if result != None:
+                result = result["id"]
+        except Exception as e:
+            print("ERROR || Can't get data from db")
+            print(e)
+        
+        return result
+    
+    def find_pw(self, id):
+        try:
+            result = self.dbms.selectUser(id)
+            if result != None:
+                pw_result = result["pw"]
+                uid_result = result["uid"]
 
+        except Exception as e:
+            print("ERROR || Can't get data from db")
+            print(e)
+
+        return pw_result, uid_result
 
 
 

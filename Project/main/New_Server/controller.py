@@ -11,14 +11,14 @@ class Master_Controller():
         self.login = LoginView(model)
 
     # 책 데이터 요청
-    # flag |  "mainPage", "detail", "sale"
-    def get_book_data(self, flag): 
-        result = self.book_detail.get_data(flag)
+    # flag |  "mainPage", "detail", "sale", "sale_detail"
+    def get_book_data(self, flag, bid = None): 
+        result = self.book_detail.get_data(flag, bid)
         return result
     
     # 유저 id, pw 정보 요청
     def get_user_data(self, id, pw):
-        result = self.login.checkLogin(id, pw)
+        result = self.login.checkLogin(id, pw) 
         return result
     
 
@@ -30,17 +30,26 @@ class BookDetailView():
     def __init__(self, model):
         self.model:MasterModel = model
 
-    def get_data(self, flag):
-        books = self.model.get_book_list()
+    def get_data(self, flag, bid):
+        
+        # 메인 페이지
         if flag == "mainPage":
+            books = self.model.get_book_list()
             result = self.__sort_book(books, flag="date")  # 날짜 순으로 정렬
             result = result[:len(result)//2] # 전체 데이터 중 1/2만 보내기
             result = self.__book2dict(result, flag=flag) # dict 타입으로 변경
             #print(result)
+
+        # 책 상세정보
         elif flag == "detail":
-            # book = self.model.get_book
-            result = self.__book2dict(result, flag="detail")
+            book = self.model.get_book(bid)
+            result = self.__book2dict(book, flag="detail")
             # 책 상세 정보일때 사용할 내용 추가
+
+        # 구매 페이지
+
+        # 구매 상세 페이지
+        
         return result
 
     # 정렬을 위한 함수
@@ -82,11 +91,30 @@ class LoginView():
     def __init__(self, model):
         self.model:MasterModel = model
 
+
+    # 로그인 함수
     def checkLogin(self, id, pw):
-        if self.id == id and self.pw == pw:
-            return True
+        id_result = self.model.find_valid_id(id)
+
+        if id_result == None:
+            return {"result":"false", "bid":-1}
+        
+        # id를 넣으면 pw가 나오는 함수
+        pw_result, uid = self.model.find_pw(id)  
+
+        if pw != pw_result:
+            return {"result":"false", "bid":-1}
         else:
-            return False
+            return {"result":"true", "bid":uid}
+
+    # 회원가입
+
+    # 아이디 찾기
+
+    # 비밀번호 찾기
+        
+
+# 상품 
 
 
 # EasyOCR 투입해야하므로 이 클래스는 대기

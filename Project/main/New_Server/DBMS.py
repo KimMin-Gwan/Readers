@@ -124,6 +124,23 @@ class Database():
         result = self.dataToBookList(data)
 
         return result
+
+    def selectBookByWriter(self, writer:str):
+        query = "select * from book where writer like concat('%', %s, '%')"
+
+        cursor = self.connection.cursor()
+        cursor.execute(query(writer))
+        
+        data = cursor.fetchall()        
+        cursor.close()
+        
+        if not len(data):
+            return
+
+        result = self.dataToBookList(data)
+
+        return result
+           
            
     def selectAllBook(self):
         query = "select * from book"

@@ -12,7 +12,7 @@ class AppServer():
         self.app = FastAPI()
         self.controller:Master_Controller = controller
 
-
+        # 미들웨어
         self.app.add_middleware(
             CORSMiddleware, 
             allow_origins='*',
@@ -35,8 +35,8 @@ class AppServer():
         
         # 도서 상세정보 데이터 전송
         @self.app.get('/homePage/{bid}')
-        async def getBookDetailPage():
-            result = self.controller.get_book_data("detail") #dict
+        async def getBookDetailPage(bid : int):
+            result = self.controller.get_book_data("detail", bid) #dict
             return result
         
         # login
