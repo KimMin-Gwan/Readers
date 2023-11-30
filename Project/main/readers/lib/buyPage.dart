@@ -2,7 +2,8 @@ import "package:flutter/material.dart";
 import "./search.dart" as search;
 import "./sellingInfo.dart";
 import "./bookInfo.dart";
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class BuyPage extends StatefulWidget {
   const BuyPage ({super.key});
@@ -99,6 +100,7 @@ class SubBuyPage extends StatelessWidget {
                                                               },
                                                               //child: Text("저자"))
                                                               child:Text(this.buyPageData[i]["writer"])
+                                                          )
                                                         ]
                                                     ),
                                                   ),
