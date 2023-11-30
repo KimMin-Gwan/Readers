@@ -41,6 +41,32 @@ class Book():
         }
         return dict_data
     
+    # store 반납을 위한 용도 
+    def data2DictforStore(self):
+        dict_data = {
+            'bid': self.bid,
+            'title': self.title,
+            'author': self.author,
+            'publishedDate': self.publishedDate,
+            'numSearch': self.numSearch,
+            'publisher': self.publisher
+            # 가격?
+        }
+        return dict_data
+    
+    # store_detail 반납을 위한 용도 
+    def data2DictforStoreDetail(self):
+        dict_data = {
+            'bid': self.bid,
+            'title': self.title,
+            'author': self.author,
+            'publishedDate': self.publishedDate,
+            'numSearch': self.numSearch,
+            'publisher': self.publisher
+            # 가격 및 구매처?
+        }
+        return dict_data
+    
 class User():
     def __init__(self, uid, id, pw, name, phone, email):
         self.uid = uid
@@ -85,6 +111,14 @@ books = [
     Book(20, "Book20", "Author20", "Genre20", "2022/01/21", "Intro20", "Contents20", "Link20", 55, "Publisher20")
 ]
 
+user = [
+    User(1, 'user1', 'pw1', '홍길동', '010-1234-5678', 'user1@email.com'),
+    User(2, 'user2', 'pw2', '이순신', '010-2345-6789', 'user2@email.com'),
+    User(3, 'user3', 'pw3', '세종대왕', '010-3456-7890', 'user3@email.com'),
+    User(4, 'user4', 'pw4', '유관순', '010-4567-8901', 'user4@email.com'),
+    User(5, 'user5', 'pw5', '강감찬', '010-5678-9012', 'user5@email.com')
+]
+
 class Database():
     def __init__(self):
         print("database testing class")
@@ -100,4 +134,11 @@ class Database():
                 break
             
         return result 
-
+    
+    def selectUser(id):
+        return user
+    
+    def insertUser(self, uid, id, pw, name, phone, email):
+        user = User(uid, id, pw, name, phone, email)
+        return user
+        

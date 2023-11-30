@@ -65,8 +65,42 @@ class MasterModel():
             print(e)
 
         return pw_result, uid_result
+    
+    # 회원가입
+    def insertUser(self, uid, id, pw, name, phone, email):
+        try:
+            result = self.dbms.insertUser(uid, id, pw, name, phone, email)
 
+        except Exception as e:
+            print("ERROR || Can't get data from db")
+            print(e)
 
+        return result
+    
+    # 아이디 찾기
+    def get_id(self, name, email):
+        # name, email -> id?
+        try:
+            result = self.dbms.selectUser(id)
+            if result != None:
+                result = result["id"]
+
+        except Exception as e:
+            print("ERROR || Can't get data from db")
+            print(e)
+
+    # 비밀번호 찾기
+    def get_pw(self, id, name, email):
+        # name, email?
+        try:
+            result = self.dbms.selectUser(id)
+            if result != None:
+                result = result["pw"]
+
+        except Exception as e:
+            print("ERROR || Can't get data from db")
+            print(e)
+        
 
 
 

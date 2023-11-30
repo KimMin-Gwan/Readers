@@ -42,7 +42,25 @@ class AppServer():
         # login
         @self.app.post('/login')
         async def login(id: str, pw: str):
-            result = self.controller.get_user_data(id, pw)
+            result = self.controller.get_login_data(id, pw)
+            return result
+        
+        # register
+        @self.app.post('/register')
+        async def register(id: str, pw: str, name: str, phone: str, email: str):
+            result = self.controller.get_user_data(id, pw, name, phone, email)
+            return result
+        
+        # find ID
+        @self.app.post('/findID')
+        async def findID(name: str, email: str):
+            result = self.controller.get_id_data(name, email)
+            return result
+        
+        # find PW
+        @self.app.post('/findPW')
+        async def findPW(id: str, name: str, email: str):
+            result = self.controller.get_pw_data(id, name, email)
             return result
 
     def run_server(self):
