@@ -40,6 +40,24 @@ class Book():
             'publisher': self.publisher
         }
         return dict_data
+    
+class User():
+    def __init__(self, uid, id, pw, name, phone, email):
+        self.uid = uid
+        self.id = id
+        self.pw = pw
+        self.name = name
+        self.phone = phone
+        self.email = email
+
+class Review():
+    def __init__(self, writer, likes, contents, bid, date):
+        self.writer = writer # 작성자
+        self.likes = likes
+        self.contents = contents
+        self.bid = bid # 리뷰를 저장한 책의 번호
+        self.date = date # 리뷰 작성일
+
 
 # DB 연결이 없는 환경에서 서버를 테스팅 하기 위한 용도
 
@@ -67,11 +85,13 @@ books = [
     Book(20, "Book20", "Author20", "Genre20", "2022/01/21", "Intro20", "Contents20", "Link20", 55, "Publisher20")
 ]
 
-
 class Database():
     def __init__(self):
         print("database testing class")
 
     def selectAllBook(self):
         return books
+    
+    def selectBook(self, bid):
+        return book
 

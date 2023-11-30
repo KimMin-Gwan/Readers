@@ -8,12 +8,17 @@ class Master_Controller():
     def __init__(self, model):
         #self.cover_search = Cover_Search_Controller(model)
         self.book_detail = BookDetailView(model)
-
+        self.login = LoginView(model)
 
     # 책 데이터 요청
     # flag |  "mainPage", "detail", "sale"
     def get_book_data(self, flag): 
         result = self.book_detail.get_data(flag)
+        return result
+    
+    # 유저 id, pw 정보 요청
+    def get_user_data(self, id, pw):
+        result = self.login.checkLogin(id, pw)
         return result
     
 
@@ -33,8 +38,9 @@ class BookDetailView():
             result = self.__book2dict(result, flag=flag) # dict 타입으로 변경
             #print(result)
         elif flag == "detail":
+            # book = self.model.get_book
+            result = self.__book2dict(result, flag="detail")
             # 책 상세 정보일때 사용할 내용 추가
-            pass
         return result
 
     # 정렬을 위한 함수
@@ -70,6 +76,17 @@ class BookDetailView():
                 dictDataList.append(result)
 
         return dictDataList
+
+# 로그인 클래스   
+class LoginView():
+    def __init__(self, model):
+        self.model:MasterModel = model
+
+    def checkLogin(self, id, pw):
+        if self.id == id and self.pw == pw:
+            return True
+        else:
+            return False
 
 
 # EasyOCR 투입해야하므로 이 클래스는 대기

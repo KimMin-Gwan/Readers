@@ -33,9 +33,16 @@ class AppServer():
             result = self.controller.get_book_data("mainPage") #dict
             return result
         
+        # 도서 상세정보 데이터 전송
         @self.app.get('/homePage/{bid}')
-        async def getHomePage():
-            result = self.controller.#dict
+        async def getBookDetailPage():
+            result = self.controller.get_book_data("detail") #dict
+            return result
+        
+        # login
+        @self.app.post('/login')
+        async def login(id: str, pw: str):
+            result = self.controller.get_user_data(id, pw)
             return result
 
     def run_server(self):
