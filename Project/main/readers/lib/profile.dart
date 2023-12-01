@@ -152,7 +152,7 @@ class Profile extends StatelessWidget {
       children: [
         Container(
           color: Colors.grey,
-          height: 250, //안에 이미지를 넣어도 좋을 듯...?
+          height: 220, //안에 이미지를 넣어도 좋을 듯...?
         ),
       ],
     );
