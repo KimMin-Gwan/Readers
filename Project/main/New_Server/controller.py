@@ -71,7 +71,8 @@ class BookDetailView():
         # 구매 페이지
         elif flag == "store":
             books = self.model.get_book_list()
-            # 정렬 생략
+            result = self.__sort_book(books, flag="date")  # 날짜 순으로 정렬
+            result = result[:len(result)//2] # 전체 데이터 중 1/2만 보내기
             result = self.__book2dict(result, flag="store") # dict 타입으로 변경
             
         # 구매 상세 페이지

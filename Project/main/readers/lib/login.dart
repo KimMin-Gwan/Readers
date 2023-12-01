@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './find.dart' as find;
 import './main.dart' as main;
+import './register.dart' as register;
 
 class loginPage extends StatelessWidget {
   const loginPage({Key? key}) : super(key: key);
@@ -173,7 +174,12 @@ class _LoginFormState extends State<LoginForm> {
             width: double.infinity,
             height: 45,
             child: ElevatedButton(
-              onPressed: () {}, //필요하면 추가구현
+              onPressed: () {
+                Navigator.push(
+                  context,
+                MaterialPageRoute(builder: (context) => register.Register()),
+                );
+              }, //필요하면 추가구현
               child: Text('회원가입'),
               style: ElevatedButton.styleFrom(
                 primary: Colors.deepPurple,

@@ -19,11 +19,9 @@ class _HomeState extends State<Home> {
   getData() async {
     var result = await http.get(Uri.http('127.0.0.1:8000', '/homePage'));
     if (result.statusCode == 200) {
-      print(utf8.decode(result.bodyBytes));
       setState(() {
         this.bookListData = jsonDecode(utf8.decode(result.bodyBytes));
       });
-      print( this.bookListData );
     } else {
       throw Exception('Data Fail to Get');
     }
@@ -37,7 +35,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    print(this.bookListData);
     return HomePage(bookListData : this.bookListData);
   }
 }
@@ -56,32 +53,7 @@ class HomePage extends StatelessWidget {
         return Column(
           children: [
             //검색창
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: '검색어를 입력하세요',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30.0)
-                    ),
-                  ),
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 0, 10.0, 0),
-                    child: Icon(Icons.search),
-                  ),
-                ),
 
-                onChanged: (value){
-                  //입력값을 실시간 처리 가능->실시간 검색기능 구현은 해당 함수 내에서ok
-                  //검색 로직 구현
-
-                  //if)엔터키~ onSubmitted: 사용하면 될듯
-                },
-                //(SingleChildScrollView: Textfield에 의해 키보드 활성화 되었을 때,
-                // 화면 스크롤 가능. 픽셀 문제 해결할듯)
-              ),
-            ),
-            
             Container(
                 margin: EdgeInsets.all(20),
                 child: Container(
@@ -99,7 +71,7 @@ class HomePage extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(5.0),
                             child: Image.network(
-                                'https://marketplace.canva.com/EAD12irp-Wk/1/0/1003w/canva-%EC%9D%BC%EB%AA%B0-%EB%A1%9C%EB%A7%A8%EC%8A%A4-%EC%A0%84%EC%9E%90%EC%B1%85-%ED%91%9C%EC%A7%80-rhOetH7hcqE.jpg'),
+                                'https://cdn-icons-png.flaticon.com/512/5434/5434056.png'),
                           ),
                           //Expanded(
                           //child: Container(
@@ -133,13 +105,11 @@ class HomePage extends StatelessWidget {
                                                                   context,
                                                                   MaterialPageRoute(
                                                                       builder: (
-                                                                          context) =>
-                                                                          search
-                                                                              .SearchAuthor()),
+                                                                          context) => search.SearchAuthor()),
                                                                 );
                                                               },
                                                               //child: Text("저자"))
-                                                              child: this.bookListData[i]["writer"])
+                                                              child: Text(this.bookListData[i]["author"]))
                                                         ]
                                                     ),
                                                   ),
@@ -182,14 +152,11 @@ class HomePage extends StatelessWidget {
                                                                 Navigator.push(
                                                                   context,
                                                                   MaterialPageRoute(
-                                                                      builder: (
-                                                                          context) =>
-                                                                          search
-                                                                              .SearchAuthor()),
+                                                                      builder: (context) => search.SearchAuthor()),
                                                                 );
                                                               },
                                                               //child: Text("2021년 08월 26일"))
-                                                            child: this.bookListData[i]["publishedDate"])
+                                                            child: Text(this.bookListData[i]["publishedDate"]))
                                                         ]
                                                     ),
                                                   ),
@@ -197,21 +164,17 @@ class HomePage extends StatelessWidget {
                                                     padding: EdgeInsets.all(1),
                                                     child: Row(
                                                         children: [
-                                                          Icon(Icons
-                                                              .share_location),
+                                                          Icon(Icons.share_location),
                                                           TextButton(
                                                               onPressed: () {
                                                                 Navigator.push(
                                                                   context,
                                                                   MaterialPageRoute(
                                                                       builder: (
-                                                                          context) =>
-                                                                          search
-                                                                              .SearchAuthor()),
+                                                                          context) => search.SearchAuthor()),
                                                                 );
                                                               },
-                                                              child: Text(
-                                                                  "판매처"))
+                                                              child: Text("판매처"))
                                                         ]
                                                     ),
                                                   ),
@@ -225,8 +188,7 @@ class HomePage extends StatelessWidget {
                                       child: ElevatedButton(
                                         onPressed: () {
                                           Navigator.push(context,
-                                              MaterialPageRoute(builder: (
-                                                  context) => const BookInfo()));
+                                              MaterialPageRoute(builder: (context) => BookInfo(bid:this.bookListData[i]["bid"])));
                                         },
                                         child: Text("상세 정보"),
                                       )

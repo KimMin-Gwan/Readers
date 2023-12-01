@@ -4,18 +4,19 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class SellingInfo extends StatefulWidget {
-  const SellingInfo({super.key});
+  const SellingInfo({super.key, this.bid});
+  final bid;
 
   @override
   State<SellingInfo> createState() => _SellingInfoState();
 }
 
 class _SellingInfoState extends State<SellingInfo> {
-
   var sellInfoData = [];
 
   getData() async {
-    var result = await http.get(Uri.http('127.0.0.1:8000', '/homePage'));
+    var uri = Uri.http('127.0.0.1:8000', '/storeDetailPage/', {'bid': widget.bid});
+    var result = await http.get(uri);
     if (result.statusCode == 200) {
       print(utf8.decode(result.bodyBytes));
       setState(() {
@@ -56,7 +57,7 @@ class SubSellInfo extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset('camera.jpeg'),
+                Image.network('https://cdn-icons-png.flaticon.com/512/5434/5434056.png'),
                 VerticalDivider(thickness: 3,color: Colors.black,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,22 +99,13 @@ class SubSellInfo extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Icon(Icons.reviews),
-                        Text('리뷰',style:TextStyle(fontSize: 10)),
-                        Container(
-                          margin: EdgeInsets.only(left: 8), // 원하는 간격으로 조절
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text('상세 보기'),
-                          ),
-                        ),
+                        Icon(Icons.date_range),
+                        Text(this.sellInfoData[0]["publishedDate"], style:TextStyle(fontSize: 10)),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Icon(Icons.date_range),
-                        Text('날짜',style:TextStyle(fontSize: 10)),
                         Container(
                           margin: EdgeInsets.only(left: 8), // 원하는 간격으로 조절
                           child: ElevatedButton(
@@ -121,6 +113,13 @@ class SubSellInfo extends StatelessWidget {
                               Navigator.push(context, MaterialPageRoute(builder: (context)=>const ReviewPage()));
                             },
                             child: Text('리뷰 보기'),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 8), // 원하는 간격으로 조절
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: Text('상세 보기'),
                           ),
                         ),
                       ],
@@ -132,26 +131,24 @@ class SubSellInfo extends StatelessWidget {
           ),),
           Divider(thickness: 3,color: Colors.black,),
           Container(
-              decoration: BoxDecoration(border: Border.all(color: Colors.red)),
-              child: ListView(
+            decoration: BoxDecoration(border: Border.all(color: Colors.red)),
+            child: Material(
+              child:ListView.builder(
                 shrinkWrap: true,
-                children: [
-                  ListTile(title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(this.sellInfoData[0]["purchaseLink"]),
-                      Text('8000원')
-                    ],
-                  ),),
-                  ListTile(title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('교보문고'),
-                      Text('8000원')
-                    ],
-                  ),),
-                ],
-              )),
+                itemCount: this.sellInfoData[0]["purchaseLink"].length, // 반복할 횟수
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(this.sellInfoData[0]["purchaseLink"][index]), // 각 항목에 대한 데이터 처리
+                      ],
+                    ),
+                  );
+                },
+              )
+            )
+          ),
         ],
       );
     }else{

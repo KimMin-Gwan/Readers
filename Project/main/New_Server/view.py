@@ -34,9 +34,24 @@ class AppServer():
             return result
         
         # 도서 상세정보 데이터 전송
-        @self.app.get('/homePage/{bid}')
-        async def getBookDetailPage(bid : int):
+        @self.app.get('/detailPage/')
+        async def getBookDetailPage(bid : str):
+            print(bid)
             result = self.controller.get_book_data("detail", bid) #dict
+            print(result)
+            return result
+
+        # 도서 구매 페이지 
+        @self.app.get('/buyPage')
+        async def getbuyPage():
+            result = self.controller.get_book_data("store") #dict
+            return result
+        
+        # 도서 상세정보 데이터 전송
+        @self.app.get('/storeDetailPage/')
+        async def getBookSellPage(bid : str):
+            print("bid:",bid)
+            result = self.controller.get_book_data("store_detail", bid) #dict
             return result
         
         # login
@@ -70,7 +85,7 @@ class AppServer():
             return result
 
     def run_server(self):
-        uvicorn.run(self.app, host="172.31.42.115", port = 8000)
+        uvicorn.run(self.app, host="127.0.0.1", port = 8000)
 
     
 

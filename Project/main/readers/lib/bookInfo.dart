@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class BookInfo extends StatefulWidget {
-  const BookInfo ({super.key});
+  const BookInfo ({super.key, this.bid});
+  final bid;
 
   @override
   State<BookInfo> createState() => _BookInfoState();
@@ -15,13 +16,15 @@ class _BookInfoState extends State<BookInfo> {
   var bookInfoData =[];
 
   getData() async {
-    var result = await http.get(Uri.http('127.0.0.1:8000', '/homePage'));
+    var uri = Uri.http('127.0.0.1:8000', '/detailPage/', {'bid': widget.bid});
+    print(uri);
+    var result = await http.get(uri);
     if (result.statusCode == 200) {
-      print(utf8.decode(result.bodyBytes));
+      //print(utf8.decode(result.bodyBytes));
       setState(() {
         this.bookInfoData = jsonDecode(utf8.decode(result.bodyBytes));
       });
-      print( this.bookInfoData );
+      //print( this.bookInfoData );
     } else {
       throw Exception('Data Fail to Get');
     }
@@ -35,7 +38,7 @@ class _BookInfoState extends State<BookInfo> {
 
   @override
   Widget build(BuildContext context) {
-    print(this.bookInfoData);
+    //print(this.bookInfoData);
     return SubBookINfo(bookInfoData: this.bookInfoData);
   }
 }

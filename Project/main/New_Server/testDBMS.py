@@ -62,7 +62,8 @@ class Book():
             'author': self.author,
             'publishedDate': self.publishedDate,
             'numSearch': self.numSearch,
-            'publisher': self.publisher
+            'publisher': self.publisher,
+            'purchaseLink': self.purchaseLink,
             # 가격 및 구매처?
         }
         return dict_data
@@ -101,27 +102,29 @@ class Review():
 
 # 20개의 Book 객체 생성
 books = [
-    Book(1, "Book1", "Author1", "Genre1", "2022/01/03", "Intro1", "Contents1", "Link1", 10, "Publisher1"),
-    Book(2, "Book2", "Author2", "Genre2", "2022/01/01", "Intro2", "Contents2", "Link2", 5, "Publisher2"),
-    Book(3, "Book3", "Author3", "Genre3", "2022/01/02", "Intro3", "Contents3", "Link3", 8, "Publisher3"),
-    Book(4, "Book4", "Author4", "Genre4", "2022/01/05", "Intro4", "Contents4", "Link4", 15, "Publisher4"),
-    Book(5, "Book5", "Author5", "Genre5", "2022/01/04", "Intro5", "Contents5", "Link5", 12, "Publisher5"),
-    Book(6, "Book6", "Author6", "Genre6", "2022/01/07", "Intro6", "Contents6", "Link6", 18, "Publisher6"),
-    Book(7, "Book7", "Author7", "Genre7", "2022/01/06", "Intro7", "Contents7", "Link7", 20, "Publisher7"),
-    Book(8, "Book8", "Author8", "Genre8", "2022/01/09", "Intro8", "Contents8", "Link8", 25, "Publisher8"),
-    Book(9, "Book9", "Author9", "Genre9", "2022/01/08", "Intro9", "Contents9", "Link9", 22, "Publisher9"),
-    Book(10, "Book10", "Author10", "Genre10", "2022/01/11", "Intro10", "Contents10", "Link10", 30, "Publisher10"),
-    Book(11, "Book11", "Author11", "Genre11", "2022/01/10", "Intro11", "Contents11", "Link11", 28, "Publisher11"),
-    Book(12, "Book12", "Author12", "Genre12", "2022/01/13", "Intro12", "Contents12", "Link12", 32, "Publisher12"),
-    Book(13, "Book13", "Author13", "Genre13", "2022/01/12", "Intro13", "Contents13", "Link13", 35, "Publisher13"),
-    Book(14, "Book14", "Author14", "Genre14", "2022/01/15", "Intro14", "Contents14", "Link14", 40, "Publisher14"),
-    Book(15, "Book15", "Author15", "Genre15", "2022/01/14", "Intro15", "Contents15", "Link15", 38, "Publisher15"),
-    Book(16, "Book16", "Author16", "Genre16", "2022/01/17", "Intro16", "Contents16", "Link16", 45, "Publisher16"),
-    Book(17, "Book17", "Author17", "Genre17", "2022/01/16", "Intro17", "Contents17", "Link17", 42, "Publisher17"),
-    Book(18, "Book18", "Author18", "Genre18", "2022/01/19", "Intro18", "Contents18", "Link18", 50, "Publisher18"),
-    Book(19, "Book19", "Author19", "Genre19", "2022/01/18", "Intro19", "Contents19", "Link19", 48, "Publisher19"),
-    Book(20, "Book20", "Author20", "Genre20", "2022/01/21", "Intro20", "Contents20", "Link20", 55, "Publisher20")
+    Book("1", "Book1", "Author1", "Genre1", "2022/01/03", "Intro1", "Contents1", "Link1", 10, "Publisher1"),
+    Book("2", "Book2", "Author2", "Genre2", "2022/01/01", "Intro2", "Contents2", "Link2", 5, "Publisher2"),
+    Book("3", "Book3", "Author3", "Genre3", "2022/01/02", "Intro3", "Contents3", "Link3", 8, "Publisher3"),
+    Book("4", "Book4", "Author4", "Genre4", "2022/01/05", "Intro4", "Contents4", "Link4", 15, "Publisher4"),
+    Book("5", "Book5", "Author5", "Genre5", "2022/01/04", "Intro5", "Contents5", "Link5", 12, "Publisher5"),
+    Book("6", "Book6", "Author6", "Genre6", "2022/01/07", "Intro6", "Contents6", "Link6", 18, "Publisher6"),
+    Book("7", "Book7", "Author7", "Genre7", "2022/01/06", "Intro7", "Contents7", "Link7", 20, "Publisher7"),
+    Book("8", "Book8", "Author8", "Genre8", "2022/01/09", "Intro8", "Contents8", "Link8", 25, "Publisher8"),
+    Book("9", "Book9", "Author9", "Genre9", "2022/01/08", "Intro9", "Contents9", "Link9", 22, "Publisher9"),
+    Book("10", "Book10", "Author10", "Genre10", "2022/01/11", "Intro10", "Contents10", "Link10", 30, "Publisher10"),
+    Book("11", "Book11", "Author11", "Genre11", "2022/01/10", "Intro11", "Contents11", "Link11", 28, "Publisher11"),
+    Book("12", "Book12", "Author12", "Genre12", "2022/01/13", "Intro12", "Contents12", "Link12", 32, "Publisher12"),
+    Book("13", "Book13", "Author13", "Genre13", "2022/01/12", "Intro13", "Contents13", "Link13", 35, "Publisher13"),
+    Book("14", "Book14", "Author14", "Genre14", "2022/01/15", "Intro14", "Contents14", "Link14", 40, "Publisher14"),
+    Book("15", "Book15", "Author15", "Genre15", "2022/01/14", "Intro15", "Contents15", "Link15", 38, "Publisher15"),
+    Book("16", "Book16", "Author16", "Genre16", "2022/01/17", "Intro16", "Contents16", "Link16", 45, "Publisher16"),
+    Book("17", "Book17", "Author17", "Genre17", "2022/01/16", "Intro17", "Contents17", "Link17", 42, "Publisher17"),
+    Book("18", "Book18", "Author18", "Genre18", "2022/01/19", "Intro18", "Contents18", "Link18", 50, "Publisher18"),
+    Book("19", "Book19", "Author19", "Genre19", "2022/01/18", "Intro19", "Contents19", "Link19", 48, "Publisher19"),
+    Book("20", "Book20", "Author20", "Genre20", "2022/01/21", "Intro20", "Contents20", "Link20", 55, "Publisher20"),
 ]
+
+
 
 user = [
     User(1, 'user1', 'pw1', '홍길동', '010-1234-5678', 'user1@email.com'),
@@ -143,10 +146,15 @@ class Database():
         return books
     
     def selectBook(self, bid):      
-
+        result = []
+        print("bid : ", bid)
+        #print("bid : ", type(bid))
         for book in books:
+            print("book:",book.bid)
+            #print("book:",type(book.bid))
             if book.bid == bid:
-                result = book
+                print(book.bid)
+                result.append(book)
                 break
             
         return result 

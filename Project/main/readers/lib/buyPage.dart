@@ -91,7 +91,7 @@ class SubBuyPage extends StatelessWidget {
                         children:[
                           ClipRRect(
                             borderRadius: BorderRadius.circular(5.0),
-                            child:Image.network('https://marketplace.canva.com/EAD12irp-Wk/1/0/1003w/canva-%EC%9D%BC%EB%AA%B0-%EB%A1%9C%EB%A7%A8%EC%8A%A4-%EC%A0%84%EC%9E%90%EC%B1%85-%ED%91%9C%EC%A7%80-rhOetH7hcqE.jpg'),
+                            child:Image.network('https://cdn-icons-png.flaticon.com/512/5434/5434056.png'),
                           ),
                           //Expanded(
                           //child: Container(
@@ -120,22 +120,8 @@ class SubBuyPage extends StatelessWidget {
                                                               );
                                                               },
                                                               //child: Text("저자"))
-                                                              child:Text(this.buyPageData[i]["writer"])
+                                                              child:Text(this.buyPageData[i]["author"])
                                                           )
-                                                        ]
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    padding: EdgeInsets.all(1),
-                                                    child:Row (
-                                                        children: [
-                                                          Icon(Icons.speaker_notes),
-                                                          TextButton(
-                                                              onPressed: (){Navigator.push(context,
-                                                                MaterialPageRoute(builder: (context) => search.SearchAuthor()),
-                                                              );
-                                                              },
-                                                              child: Text("리뷰수"))
                                                         ]
                                                     ),
                                                   ),
@@ -150,7 +136,7 @@ class SubBuyPage extends StatelessWidget {
                                             padding: EdgeInsets.all(1),
                                             child: ElevatedButton(
                                               onPressed: (){
-                                                Navigator.push(context, MaterialPageRoute(builder: (context)=>const SellingInfo()));
+                                                Navigator.push(context, MaterialPageRoute(builder: (context)=>SellingInfo(bid:this.buyPageData[i]["bid"])));
                                               },
                                               child: Text("판매 정보"),
                                             )
@@ -159,7 +145,7 @@ class SubBuyPage extends StatelessWidget {
                                             padding: EdgeInsets.all(1),
                                             child: ElevatedButton(
                                               onPressed: (){
-                                                Navigator.push(context, MaterialPageRoute(builder: (context)=>const BookInfo()));
+                                                Navigator.push(context, MaterialPageRoute(builder: (context)=>BookInfo(bid:this.buyPageData[i]["bid"])));
                                               },
                                               child: Text("상세 정보"),
                                             )
