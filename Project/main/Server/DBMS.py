@@ -41,6 +41,7 @@ class Database():
             return
         
     def updateUser(self, id:str, password:str, name:str, phoneNumber:str, email:str):
+      
         query = "update user set password = %s, name %s, phoneNumber = %s, email = %s where id = %s"
         
         try: 

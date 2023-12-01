@@ -11,6 +11,7 @@ class Master_Controller():
         self.login = LoginView(model)
         self.register = RegisterView(model)
         self.find = FindView(model)
+        self.review = ReviewView(model)
 
     # 책 데이터 요청
     # flag |  "mainPage", "detail", "sale", "sale_detail"
@@ -37,7 +38,11 @@ class Master_Controller():
         result = self.find.get_PW(id, name, email)
         return result
     
-
+    # review 요청
+    def get_review_data(self, bid, writer = None):
+        result = self.review.get_review(bid, writer)
+        return result
+    
 
 # 베이스 클래스
 # 아래에서 상속하여 구현하길 권장
@@ -173,6 +178,40 @@ class FindView():
 
 # 상품 
 
+# 리뷰
+class ReviewView():
+    def __init__(self, model):
+        self.model:MasterModel = model
+
+    def get_review(self, bid, writer):
+        reviews = self.model.get_review_list(bid)
+        result = self.__sort_review(reviews, flag="date")  # 날짜 순으로 정렬
+        result = self.__review2dict(result) # dict 타입으로 변경
+
+        return result
+    
+
+    def __sort_review(self, result, flag):
+        # 날짜 단위로 정렬
+
+        if flag == "date":
+            sorted_reviews = sorted(result, key=lambda x: x.date)
+        #elif flag == "likes":
+        #    sorted_reviews = sorted(result, key=lambda x: x.title)
+        # 추가 구현 가능
+        else:
+            sorted_reviews = result
+
+        return sorted_reviews
+
+
+    def __review2dict(self, reviewList):
+        dictReviewList = []
+        for review in reviewList:
+            result = review.review2Dict(review)
+            dictReviewList.append(result)
+
+        return dictReviewList
 
 # EasyOCR 투입해야하므로 이 클래스는 대기
 class Cover_Search_Controller():

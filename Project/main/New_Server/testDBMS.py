@@ -83,6 +83,18 @@ class Review():
         self.contents = contents
         self.bid = bid # 리뷰를 저장한 책의 번호
         self.date = date # 리뷰 작성일
+        
+    def review2Dict(self):
+        dict_data = {
+            'writer': self.writer,
+            'likes': self.likes,
+            'contents': self.contents,
+            'bid': self.bid,
+            'date': self.date,
+        }
+        return dict_data
+
+
 
 
 # DB 연결이 없는 환경에서 서버를 테스팅 하기 위한 용도
@@ -119,6 +131,10 @@ user = [
     User(5, 'user5', 'pw5', '강감찬', '010-5678-9012', 'user5@email.com')
 ]
 
+reviews = [
+
+]
+
 class Database():
     def __init__(self):
         print("database testing class")
@@ -141,4 +157,12 @@ class Database():
     def insertUser(self, uid, id, pw, name, phone, email):
         user = User(uid, id, pw, name, phone, email)
         return user
+    
+    def selectReview(self, bid, writer):      
+
+        for review in reviews:
+            if review.bid == bid:
+                result = review
+                break
         
+        return result

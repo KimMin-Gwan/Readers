@@ -100,7 +100,18 @@ class MasterModel():
         except Exception as e:
             print("ERROR || Can't get data from db")
             print(e)
-        
+    
+    # 특정 도서 리뷰리스트
+    def get_review_list(self, bid):
+        result = []
+        try:
+            # List<Review>
+            result = self.dbms.selectReview(bid)
+        except Exception as e:
+            print("ERROR || Can't get data from db")
+            print(e)
+
+        return result
 
 
 

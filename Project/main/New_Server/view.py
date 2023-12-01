@@ -62,6 +62,12 @@ class AppServer():
         async def findPW(id: str, name: str, email: str):
             result = self.controller.get_pw_data(id, name, email)
             return result
+        
+         # review 데이터 전송
+        @self.app.get('/review')
+        async def getReview(bid: int):
+            result = self.controller.get_review_data(bid) #dict
+            return result
 
     def run_server(self):
         uvicorn.run(self.app, host="172.31.42.115", port = 8000)
