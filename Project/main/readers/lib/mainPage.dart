@@ -55,6 +55,33 @@ class HomePage extends StatelessWidget {
           itemCount: this.bookListData.length, itemBuilder: (c, i) {
         return Column(
           children: [
+            //검색창
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: '검색어를 입력하세요',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)
+                    ),
+                  ),
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.fromLTRB(20.0, 0, 10.0, 0),
+                    child: Icon(Icons.search),
+                  ),
+                ),
+
+                onChanged: (value){
+                  //입력값을 실시간 처리 가능->실시간 검색기능 구현은 해당 함수 내에서ok
+                  //검색 로직 구현
+
+                  //if)엔터키~ onSubmitted: 사용하면 될듯
+                },
+                //(SingleChildScrollView: Textfield에 의해 키보드 활성화 되었을 때,
+                // 화면 스크롤 가능. 픽셀 문제 해결할듯)
+              ),
+            ),
+            
             Container(
                 margin: EdgeInsets.all(20),
                 child: Container(
